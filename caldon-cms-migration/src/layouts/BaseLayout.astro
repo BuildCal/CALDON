@@ -1,0 +1,199 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "CALDON™: Private property development, investment and development brokerage across NSW." } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} | CALDON™</title>
+  <meta name="description" content={description}>
+  <meta name="author" content="CALDON™">
+  
+  <meta property="og:type" content="website">
+  <meta property="og:title" content={`${title} | CALDON™`}>
+  <meta property="og:description" content={description}>
+  <meta property="og:locale" content="en_AU">
+  <meta property="og:site_name" content="CALDON™">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <style is:global>
+    :root {
+      --text-primary: #000000;
+      --text-secondary: #666666;
+      --background: #ffffff;
+      --subtle-accent: #f9f9f9;
+      --border: #e0e0e0;
+      --accent: #000000;
+      --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--background);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    
+    .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .container-wide { width: 95%; max-width: 1600px; margin: 0 auto; padding: 0 20px; }
+    
+    /* Header */
+    header {
+      position: fixed; top: 0; left: 0; width: 100%;
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000; padding: 25px 0;
+      transition: var(--transition);
+    }
+    
+    header.scrolled { padding: 15px 0; box-shadow: 0 1px 15px rgba(0, 0, 0, 0.03); }
+    
+    nav { display: flex; justify-content: space-between; align-items: center; position: relative; }
+    .nav-logo { height: 30px; max-width: 120px; width: auto; transition: var(--transition); z-index: 2; }
+    
+    .menu-toggle { display: none; background: none; border: none; cursor: pointer; padding: 10px; z-index: 2; }
+    .menu-toggle span { display: block; width: 24px; height: 2px; margin: 5px 0; background-color: var(--text-primary); transition: var(--transition); }
+    
+    nav ul { display: flex; list-style: none; gap: 40px; }
+    nav a {
+      text-decoration: none; color: var(--text-primary);
+      font-weight: 400; font-size: 0.85rem;
+      text-transform: uppercase; letter-spacing: 1.5px;
+      transition: var(--transition); position: relative;
+    }
+    nav a::after {
+      content: ''; position: absolute; width: 0; height: 1px;
+      bottom: -4px; left: 0; background-color: var(--text-primary);
+      transition: var(--transition);
+    }
+    nav a:hover::after { width: 100%; }
+    
+    /* Footer */
+    footer { padding: 40px 0; text-align: center; border-top: 1px solid var(--border); background-color: var(--subtle-accent); }
+    .footer-content { display: grid; grid-template-areas: "nav" "logo" "credentials" "copyright"; gap: 16px; max-width: 1200px; margin: 0 auto; }
+    .footer-nav { grid-area: nav; }
+    .footer-nav ul { display: flex; justify-content: center; list-style: none; gap: 20px; }
+    .footer-nav a { text-decoration: none; color: var(--text-secondary); font-size: 0.7rem; font-weight: 400; text-transform: uppercase; letter-spacing: 1.2px; transition: var(--transition); }
+    .footer-nav a:hover { color: var(--text-primary); }
+    .footer-logo { grid-area: logo; max-height: 24px; margin: 0 auto; }
+    .footer-credentials { grid-area: credentials; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+    .credential-item { display: flex; align-items: center; gap: 8px; }
+    .credential-label { font-size: 0.7rem; color: var(--text-secondary); letter-spacing: 1px; text-transform: uppercase; }
+    .credential-value { font-size: 0.7rem; color: var(--text-primary); }
+    .copyright { grid-area: copyright; font-size: 0.7rem; color: var(--text-secondary); letter-spacing: 1.2px; text-transform: uppercase; }
+    
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      nav ul {
+        position: fixed; top: 0; right: -100%; width: 250px; height: 100vh;
+        background-color: var(--background); flex-direction: column; gap: 0;
+        justify-content: flex-start; padding-top: 80px;
+        transition: right 0.3s ease; box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1); z-index: 1;
+      }
+      nav.menu-open ul { right: 0; }
+      nav ul li { width: 100%; }
+      nav ul li a { display: block; padding: 15px 25px; font-size: 1rem; border-bottom: 1px solid var(--border); }
+      nav a::after { display: none; }
+      nav.menu-open .menu-toggle span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+      nav.menu-open .menu-toggle span:nth-child(2) { opacity: 0; }
+      nav.menu-open .menu-toggle span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+      .footer-nav ul { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px 10px; }
+      .footer-credentials { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+    }
+    
+    @media (max-width: 576px) {
+      .footer-nav ul { grid-template-columns: 1fr; text-align: center; }
+      .footer-credentials { grid-template-columns: 1fr; text-align: center; }
+      .credential-item { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a href="/">
+          <img src="/logo.png" alt="CALDON™ Logo" class="nav-logo">
+        </a>
+        <button class="menu-toggle" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/development">Development</a></li>
+          <li><a href="/projects">Projects</a></li>
+          <li><a href="/development#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <slot />
+
+  <footer>
+    <div class="container footer-content">
+      <div class="footer-nav">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/development">Development</a></li>
+          <li><a href="/projects">Projects</a></li>
+          <li><a href="/development#contact">Contact</a></li>
+        </ul>
+      </div>
+      <img src="/logo.png" alt="CALDON™ Logo" class="footer-logo">
+      <div class="footer-credentials">
+        <div class="credential-item">
+          <span class="credential-label">Est:</span>
+          <span class="credential-value">2015</span>
+        </div>
+        <div class="credential-item">
+          <span class="credential-label">Focus:</span>
+          <span class="credential-value">Development & Brokerage</span>
+        </div>
+        <div class="credential-item">
+          <span class="credential-label">Markets:</span>
+          <span class="credential-value">NSW & Expanding Nationally</span>
+        </div>
+      </div>
+      <p class="copyright">© 2025 CALDON Homes Pty Limited · All Rights Reserved</p>
+    </div>
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', function() {
+      const header = document.querySelector('header');
+      if (window.scrollY > 50) header?.classList.add('scrolled');
+      else header?.classList.remove('scrolled');
+    });
+
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('nav');
+    
+    menuToggle?.addEventListener('click', () => nav?.classList.toggle('menu-open'));
+    
+    document.querySelectorAll('nav a').forEach(anchor => {
+      anchor.addEventListener('click', () => nav?.classList.remove('menu-open'));
+    });
+  </script>
+</body>
+</html>
