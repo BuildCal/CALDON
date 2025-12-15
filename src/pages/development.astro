@@ -1,0 +1,190 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Development & Brokerage" description="Property development, investment and development brokerage services across NSW.">
+  <style>
+    .hero { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; padding: 0 20px; text-align: center; overflow: hidden; }
+    .hero-content { max-width: 700px; }
+    .hero-logo { max-width: 180px; margin-bottom: 40px; }
+    .hero-tagline { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 2rem; letter-spacing: 1px; margin-bottom: 20px; line-height: 1.4; }
+    .hero-subtext { font-size: 1rem; color: var(--text-secondary); max-width: 520px; margin: 0 auto 30px; }
+    .cta-button { display: inline-block; padding: 12px 36px; background: var(--accent); color: var(--background); text-decoration: none; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; transition: var(--transition); }
+    .cta-button:hover { background: #333; }
+    .scroll-indicator { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--text-secondary); }
+    .scroll-indicator::after { content: ''; display: block; width: 1px; height: 40px; background: var(--text-secondary); margin: 10px auto 0; opacity: 0.3; }
+    
+    section { padding: 120px 0; }
+    section:nth-child(even) { background: var(--subtle-accent); }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 300; margin-bottom: 60px; text-align: center; }
+    .section-subtitle { font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; color: var(--text-secondary); text-align: center; }
+    
+    .activities-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px; max-width: 1000px; margin: 0 auto; }
+    .activity-item { text-align: center; padding: 40px 20px; transition: var(--transition); position: relative; }
+    .activity-item::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 1px solid transparent; transition: var(--transition); }
+    .activity-item:hover::before { border-color: var(--border); }
+    .activity-item h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; margin-bottom: 25px; }
+    .activity-item p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.8; }
+    
+    .philosophy-content { max-width: 800px; margin: 0 auto; text-align: center; }
+    .philosophy-quote { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; font-style: italic; line-height: 1.5; margin-bottom: 30px; }
+    .philosophy-text { font-size: 0.95rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: 20px; }
+    
+    .brokerage-intro { max-width: 800px; margin: 0 auto 60px; text-align: center; }
+    .brokerage-intro p { font-size: 0.95rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: 20px; }
+    .brokerage-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; max-width: 1000px; margin: 0 auto 60px; }
+    .brokerage-feature { display: flex; flex-direction: column; align-items: flex-start; text-align: left; }
+    .brokerage-number { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: var(--text-secondary); opacity: 0.3; margin-bottom: 10px; }
+    .brokerage-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin-bottom: 15px; }
+    .brokerage-description { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; }
+    
+    .deliverables { max-width: 800px; margin: 0 auto; padding: 50px; border: 1px solid var(--border); }
+    .deliverables-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; margin-bottom: 30px; text-align: center; }
+    .deliverables-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px 40px; }
+    .deliverable-item { display: flex; align-items: flex-start; gap: 12px; font-size: 0.9rem; color: var(--text-secondary); }
+    .deliverable-item::before { content: '—'; color: var(--border); flex-shrink: 0; }
+    
+    .contact { text-align: center; }
+    .contact-content { max-width: 600px; margin: 0 auto; }
+    .contact-intro { font-size: 0.95rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: 40px; }
+    .contact-actions { display: flex; flex-direction: column; align-items: center; gap: 20px; margin-bottom: 30px; }
+    .contact-link { display: inline-block; font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--text-primary); text-decoration: none; padding: 12px 36px; border: 1px solid var(--border); transition: var(--transition); }
+    .contact-link:hover { background: var(--accent); color: var(--background); border-color: var(--accent); }
+    .contact-note { font-size: 0.8rem; color: var(--text-secondary); font-style: italic; }
+    
+    @media (max-width: 992px) {
+      .activities-grid { grid-template-columns: 1fr; gap: 40px; }
+      .brokerage-features { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+      .deliverables-list { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .hero-tagline { font-size: 1.8rem; }
+      section { padding: 80px 0; }
+      .philosophy-quote { font-size: 1.6rem; }
+      .deliverables { padding: 30px 20px; }
+      .brokerage-features { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 576px) {
+      .hero { height: 80vh; padding-top: 80px; }
+      .hero-logo { max-width: 150px; margin-bottom: 30px; }
+      .hero-tagline { font-size: 1.5rem; }
+      .section-title { font-size: 1.8rem; margin-bottom: 40px; }
+    }
+  </style>
+
+  <div class="hero">
+    <div class="hero-content">
+      <img src="/logo.png" alt="CALDON™ Logo" class="hero-logo">
+      <p class="hero-tagline">Property Development & Brokerage</p>
+      <p class="hero-subtext">Principal investment, strategic development, and end-to-end development services for qualified investors across New South Wales.</p>
+      <a href="#activities" class="cta-button">Learn More</a>
+    </div>
+    <div class="scroll-indicator">Discover</div>
+  </div>
+
+  <section id="activities">
+    <div class="container">
+      <div class="section-subtitle">Principal Activities</div>
+      <h2 class="section-title">Development & Investment</h2>
+      <div class="activities-grid">
+        <div class="activity-item">
+          <h3>Property Acquisition</h3>
+          <p>Strategic identification and acquisition of development sites and investment properties across NSW, with particular focus on the Mid North Coast region and select metropolitan opportunities.</p>
+        </div>
+        <div class="activity-item">
+          <h3>Development Projects</h3>
+          <p>Internal development of residential and commercial properties, from single dwellings to multi-residential complexes, executed with precision and market insight for portfolio growth.</p>
+        </div>
+        <div class="activity-item">
+          <h3>Investment Holdings</h3>
+          <p>Curated property investment portfolio spanning residential, commercial, and mixed-use assets, managed for long-term capital appreciation and strategic market positioning.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="philosophy">
+    <div class="container">
+      <div class="section-subtitle">Our Philosophy</div>
+      <h2 class="section-title">Strategic Vision</h2>
+      <div class="philosophy-content">
+        <p class="philosophy-quote">"Discretion, precision, and strategic thinking drive exceptional property outcomes."</p>
+        <p class="philosophy-text">CALDON™ operates as a private property development and investment company with deep roots in the NSW market. Our focus spans regional and metropolitan New South Wales, with particular expertise across the Mid North Coast and Hunter regions, and selective opportunities in Sydney and surrounds.</p>
+        <p class="philosophy-text">We maintain a reserved approach to business, working primarily with established real estate professionals, qualified investors, and strategic partners. Our operations are built on discretion, market intelligence, and the pursuit of exceptional property opportunities.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="brokerage">
+    <div class="container">
+      <div class="section-subtitle">For Investors</div>
+      <h2 class="section-title">Development Brokerage</h2>
+      
+      <div class="brokerage-intro">
+        <p>For qualified investors seeking property development exposure, CALDON™ provides end-to-end development services—from initial site sourcing through to construction completion and beyond. You provide the investment criteria and capital; we handle the procurement, design, approvals, and project delivery.</p>
+      </div>
+      
+      <div class="brokerage-features">
+        <div class="brokerage-feature">
+          <div class="brokerage-number">01</div>
+          <h3 class="brokerage-title">Site Sourcing & Feasibility</h3>
+          <p class="brokerage-description">We identify development opportunities that match your investment criteria, conduct detailed feasibility analysis, and present qualified sites with clear financial metrics.</p>
+        </div>
+        <div class="brokerage-feature">
+          <div class="brokerage-number">02</div>
+          <h3 class="brokerage-title">Design & Approvals</h3>
+          <p class="brokerage-description">Our team manages the complete design process, town planning strategy, and DA submission through to development consent.</p>
+        </div>
+        <div class="brokerage-feature">
+          <div class="brokerage-number">03</div>
+          <h3 class="brokerage-title">Acquisition Management</h3>
+          <p class="brokerage-description">We negotiate terms, manage due diligence, and connect you to purchase the land with planning approval in place.</p>
+        </div>
+        <div class="brokerage-feature">
+          <div class="brokerage-number">04</div>
+          <h3 class="brokerage-title">Tender & Contract</h3>
+          <p class="brokerage-description">We manage the builder tendering process, evaluate submissions, and negotiate building contracts on your behalf.</p>
+        </div>
+        <div class="brokerage-feature">
+          <div class="brokerage-number">05</div>
+          <h3 class="brokerage-title">Construction & Completion</h3>
+          <p class="brokerage-description">Client-side project management throughout construction, protecting your interests to practical completion.</p>
+        </div>
+        <div class="brokerage-feature">
+          <div class="brokerage-number">06</div>
+          <h3 class="brokerage-title">NSW-Wide Capability</h3>
+          <p class="brokerage-description">Deep expertise across regional and metropolitan NSW, with established networks from the Mid North Coast to Sydney.</p>
+        </div>
+      </div>
+      
+      <div class="deliverables">
+        <h3 class="deliverables-title">End-to-End Service</h3>
+        <div class="deliverables-list">
+          <div class="deliverable-item">Site identification and feasibility</div>
+          <div class="deliverable-item">Development design and documentation</div>
+          <div class="deliverable-item">DA lodgement and approval management</div>
+          <div class="deliverable-item">Land acquisition negotiation</div>
+          <div class="deliverable-item">Quantity surveying and cost verification</div>
+          <div class="deliverable-item">Builder tendering and evaluation</div>
+          <div class="deliverable-item">Contract negotiation and execution</div>
+          <div class="deliverable-item">Client-side construction management</div>
+          <div class="deliverable-item">Post-construction depreciation schedule</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="container">
+      <div class="section-subtitle">Get In Touch</div>
+      <h2 class="section-title">Investor Enquiries</h2>
+      <div class="contact-content">
+        <p class="contact-intro">We work with qualified investors deploying capital into NSW property development. If you're seeking development exposure with professional end-to-end management, we'd like to hear from you.</p>
+        <div class="contact-actions">
+          <a href="mailto:invest@caldon.com.au" class="contact-link">invest@caldon.com.au</a>
+        </div>
+        <p class="contact-note">All enquiries are treated with discretion. We respond to qualified investor enquiries within 48 hours.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,213 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="News" description="Latest news and updates from CALDON™ Property Development.">
+  <style>
+    .page-header {
+      padding: 180px 0 100px;
+      text-align: center;
+      background-color: var(--subtle-accent);
+    }
+    
+    .section-subtitle {
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+      color: var(--text-secondary);
+    }
+    
+    .page-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+    }
+    
+    .page-header p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .news-section {
+      padding: 80px 0;
+    }
+    
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 50px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .news-item {
+      border: 1px solid var(--border);
+      padding: 40px;
+      transition: var(--transition);
+    }
+    
+    .news-item:hover {
+      box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+    }
+    
+    .news-date {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-secondary);
+      margin-bottom: 15px;
+    }
+    
+    .news-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 15px;
+      line-height: 1.3;
+    }
+    
+    .news-title a {
+      color: var(--text-primary);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .news-title a:hover {
+      color: var(--text-secondary);
+    }
+    
+    .news-excerpt {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    
+    .news-link {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-primary);
+      text-decoration: none;
+      border-bottom: 1px solid var(--text-primary);
+      padding-bottom: 2px;
+      transition: var(--transition);
+    }
+    
+    .news-link:hover {
+      opacity: 0.7;
+    }
+    
+    .news-link.external::after {
+      content: '↗';
+      margin-left: 5px;
+      font-size: 0.8em;
+    }
+    
+    /* Featured Article */
+    #wattle-court-article {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      padding: 50px;
+      background-color: var(--subtle-accent);
+      border: none;
+    }
+    
+    .featured-image {
+      aspect-ratio: 16 / 10;
+      background-color: var(--border);
+      overflow: hidden;
+    }
+    
+    .featured-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .featured-content .news-title {
+      font-size: 2rem;
+    }
+    
+    @media (max-width: 992px) {
+      .news-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      
+      #wattle-court-article {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .page-header {
+        padding: 150px 0 80px;
+      }
+      
+      .page-header h1 {
+        font-size: 2rem;
+      }
+      
+      .news-section {
+        padding: 60px 0;
+      }
+      
+      .news-item {
+        padding: 30px;
+      }
+      
+      #wattle-court-article {
+        padding: 30px;
+      }
+      
+      .featured-content .news-title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+
+  <section class="page-header">
+    <div class="container">
+      <p class="section-subtitle">Updates</p>
+      <h1>News</h1>
+      <p>Latest news and updates from CALDON™ Property Development.</p>
+    </div>
+  </section>
+
+  <section class="news-section">
+    <div class="container">
+      <div class="news-grid">
+        
+        <!-- Featured Wattle Court Article -->
+        <article class="news-item" id="wattle-court-article">
+          <div class="featured-image">
+            <img src="/wattle.png" alt="Wattle Court Partnership" style="object-fit: contain; padding: 40px; background: white;">
+          </div>
+          <div class="featured-content">
+            <p class="news-date">December 2024</p>
+            <h2 class="news-title">
+              <a href="https://www.myaustraliannews.com.au/news-releases.html?id=1032129&headline=wattle-court-plants-roots-in-nsw-mid-coast&pageNumber=7" target="_blank" rel="noopener noreferrer">
+                Wattle Court Plants Roots in NSW Mid-Coast
+              </a>
+            </h2>
+            <p class="news-excerpt">CALDON™ has partnered with Wattle Court to deliver quality construction as Wattle Court Mid-Coast. Our experienced local construction team continues building homes in Taree, Port Macquarie, Forster, Wauchope, Gloucester and surrounds.</p>
+            <a href="https://www.myaustraliannews.com.au/news-releases.html?id=1032129&headline=wattle-court-plants-roots-in-nsw-mid-coast&pageNumber=7" target="_blank" rel="noopener noreferrer" class="news-link external">Read Full Article</a>
+          </div>
+        </article>
+        
+        <!-- Additional news items can be added here -->
+        
+      </div>
+    </div>
+  </section>
+</BaseLayout>
