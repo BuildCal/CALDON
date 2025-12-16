@@ -1,0 +1,53 @@
+---
+interface Props {
+  value: number;
+  suffix?: string;
+  duration?: number;
+  class?: string;
+}
+
+const { value, suffix = '', duration = 2000, class: className = '' } = Astro.props;
+const counterId = `counter-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<span class={`number-counter ${className}`} data-counter-id={counterId} data-value={value} data-suffix={suffix} data-duration={duration}>
+  0{suffix}
+</span>
+
+<script>
+  const element = document.querySelector(`[data-counter-id="${counterId}"]`);
+  if (element) {
+    const target = parseFloat(element.getAttribute('data-value') || '0');
+    const suffix = element.getAttribute('data-suffix') || '';
+    const duration = parseFloat(element.getAttribute('data-duration') || '2000');
+    
+    let animated = false;
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !animated) {
+          animated = true;
+          
+          const start = 0;
+          const increment = target / (duration / 16);
+          let current = start;
+          
+          const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+              element.textContent = Math.floor(target) + suffix;
+              clearInterval(timer);
+            } else {
+              element.textContent = Math.floor(current) + suffix;
+            }
+          }, 16);
+          
+          observer.unobserve(element);
+        }
+      });
+    }, { threshold: 0.5 });
+    
+    observer.observe(element);
+  }
+</script>
+

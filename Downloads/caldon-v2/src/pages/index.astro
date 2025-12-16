@@ -1,0 +1,574 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="CALDON" description="Private property development partnership for select investors across NSW.">
+  <style>
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 120px 24px;
+      position: relative;
+    }
+
+    .hero-content {
+      max-width: 800px;
+    }
+
+    .hero-logo {
+      display: block;
+      width: 240px;
+      height: auto;
+      margin: 0 auto 48px;
+    }
+
+    @media (min-width: 768px) {
+      .hero-logo {
+        width: 300px;
+      }
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 300;
+      letter-spacing: 0.01em;
+      line-height: 1.3;
+      color: #0a0a0a;
+      margin-bottom: 24px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: #525252;
+      line-height: 1.8;
+      max-width: 580px;
+      margin: 0 auto 48px;
+    }
+
+    @media (min-width: 768px) {
+      .hero-subtitle {
+        font-size: 1.1rem;
+      }
+    }
+
+    .hero-cta {
+      display: inline-block;
+      padding: 16px 40px;
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #ffffff;
+      background-color: #0a0a0a;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .hero-cta:hover {
+      background-color: #2a2a2a;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 48px;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .scroll-hint-text {
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #858585;
+    }
+
+    .scroll-hint-line {
+      width: 1px;
+      height: 48px;
+      background-color: #d4d4d4;
+    }
+
+    /* Proposition Section */
+    .proposition {
+      padding: 100px 0;
+      background-color: #0a0a0a;
+      color: #ffffff;
+    }
+
+    @media (min-width: 768px) {
+      .proposition {
+        padding: 140px 0;
+      }
+    }
+
+    .proposition-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .proposition-label {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #858585;
+      margin-bottom: 24px;
+    }
+
+    .proposition-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+      font-weight: 300;
+      line-height: 1.5;
+      color: #ffffff;
+      margin-bottom: 48px;
+    }
+
+    .proposition-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      text-align: left;
+      margin-top: 64px;
+    }
+
+    @media (min-width: 768px) {
+      .proposition-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 48px;
+      }
+    }
+
+    .proposition-item-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .proposition-item-text {
+      font-size: 0.85rem;
+      color: #a0a0a0;
+      line-height: 1.7;
+    }
+
+    /* Approach Section */
+    .approach {
+      padding: 100px 0;
+    }
+
+    @media (min-width: 768px) {
+      .approach {
+        padding: 140px 0;
+      }
+    }
+
+    .approach-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .approach-label {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #858585;
+      margin-bottom: 16px;
+    }
+
+    .approach-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 300;
+      color: #0a0a0a;
+    }
+
+    .approach-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .approach-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+      }
+    }
+
+    .approach-item {
+      padding: 32px;
+      background-color: #fafafa;
+    }
+
+    .approach-item-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      color: #e0e0e0;
+      margin-bottom: 16px;
+    }
+
+    .approach-item-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: #0a0a0a;
+      margin-bottom: 12px;
+    }
+
+    .approach-item-text {
+      font-size: 0.85rem;
+      color: #525252;
+      line-height: 1.7;
+    }
+
+    .approach-cta {
+      text-align: center;
+      margin-top: 64px;
+    }
+
+    .approach-link {
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #0a0a0a;
+      text-decoration: none;
+      padding-bottom: 4px;
+      border-bottom: 1px solid #0a0a0a;
+      transition: color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .approach-link:hover {
+      color: #525252;
+      border-color: #525252;
+    }
+
+    /* Track Record */
+    .track-record {
+      padding: 100px 0;
+      background-color: #fafafa;
+    }
+
+    @media (min-width: 768px) {
+      .track-record {
+        padding: 140px 0;
+      }
+    }
+
+    .track-record-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .track-record-label {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #858585;
+      margin-bottom: 16px;
+    }
+
+    .track-record-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 300;
+      color: #0a0a0a;
+      margin-bottom: 16px;
+    }
+
+    .track-record-subtitle {
+      font-size: 0.95rem;
+      color: #525252;
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 48px;
+      }
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: #0a0a0a;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #858585;
+    }
+
+    .track-record-note {
+      text-align: center;
+      margin-top: 48px;
+      font-size: 0.85rem;
+      color: #858585;
+      font-style: italic;
+    }
+
+    /* CTA Section */
+    .cta {
+      padding: 100px 0;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .cta {
+        padding: 140px 0;
+      }
+    }
+
+    .cta-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 300;
+      color: #0a0a0a;
+      margin-bottom: 16px;
+    }
+
+    .cta-text {
+      font-size: 0.95rem;
+      color: #525252;
+      margin-bottom: 40px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.8;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 16px 40px;
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #ffffff;
+      background-color: #0a0a0a;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background-color: #2a2a2a;
+    }
+
+    .cta-note {
+      margin-top: 24px;
+      font-size: 0.8rem;
+      color: #858585;
+    }
+
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        padding: 0 48px;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out forwards;
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+  </style>
+
+  <section class="hero">
+    <div class="hero-content">
+      <img src="/logo.png" alt="CALDON" class="hero-logo fade-up" />
+      <h1 class="hero-title fade-up delay-1">Private Development Partnership<br>for Select Investors</h1>
+      <p class="hero-subtitle fade-up delay-2">
+        We deploy capital into property development opportunities across NSW. You provide the investment. We manage everything else.
+      </p>
+      <a href="/enquiry" class="hero-cta fade-up delay-3">Private Enquiry</a>
+    </div>
+    <div class="scroll-hint">
+      <span class="scroll-hint-text">Discover</span>
+      <span class="scroll-hint-line"></span>
+    </div>
+  </section>
+
+  <section class="proposition">
+    <div class="container">
+      <div class="proposition-content">
+        <p class="proposition-label">The Partnership</p>
+        <h2 class="proposition-title">
+          You have capital to deploy and a business to run. We identify opportunities, structure acquisitions, manage approvals, coordinate construction, and deliver returns — so you don't have to.
+        </h2>
+
+        <div class="proposition-grid">
+          <div class="proposition-item">
+            <h3 class="proposition-item-title">Deal Flow</h3>
+            <p class="proposition-item-text">
+              Continuous pipeline of assessed opportunities across our target markets. Qualified partners receive first access to projects meeting their criteria.
+            </p>
+          </div>
+          <div class="proposition-item">
+            <h3 class="proposition-item-title">Full Execution</h3>
+            <p class="proposition-item-text">
+              In-house capability across architecture, quantity surveying, project management, and construction. One team, one point of contact, complete accountability.
+            </p>
+          </div>
+          <div class="proposition-item">
+            <h3 class="proposition-item-title">Structured Reporting</h3>
+            <p class="proposition-item-text">
+              Quarterly progress reports, financial summaries, and direct access to your project lead. No chasing. No surprises.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="approach">
+    <div class="container">
+      <div class="approach-header">
+        <p class="approach-label">How We Work</p>
+        <h2 class="approach-title">Engagement Structure</h2>
+      </div>
+
+      <div class="approach-grid">
+        <div class="approach-item">
+          <p class="approach-item-number">01</p>
+          <h3 class="approach-item-title">Private Consultation</h3>
+          <p class="approach-item-text">
+            Confidential discussion to understand your investment objectives, risk appetite, return expectations, and preferred structures.
+          </p>
+        </div>
+        <div class="approach-item">
+          <p class="approach-item-number">02</p>
+          <h3 class="approach-item-title">Opportunity Identification</h3>
+          <p class="approach-item-text">
+            We source and assess opportunities aligned with your criteria. Full feasibility and risk analysis before any capital commitment.
+          </p>
+        </div>
+        <div class="approach-item">
+          <p class="approach-item-number">03</p>
+          <h3 class="approach-item-title">Execution & Delivery</h3>
+          <p class="approach-item-text">
+            We manage the entire development process — design, approvals, construction, and completion. You receive progress updates, not problems.
+          </p>
+        </div>
+        <div class="approach-item">
+          <p class="approach-item-number">04</p>
+          <h3 class="approach-item-title">Exit & Returns</h3>
+          <p class="approach-item-text">
+            Flexible exit strategies — hold, lease, sell, or refinance. We coordinate with your advisers to optimise the outcome.
+          </p>
+        </div>
+      </div>
+
+      <div class="approach-cta">
+        <a href="/process" class="approach-link">View Detailed Process</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="track-record">
+    <div class="container">
+      <div class="track-record-header">
+        <p class="track-record-label">Track Record</p>
+        <h2 class="track-record-title">Proven Delivery</h2>
+        <p class="track-record-subtitle">
+          A portfolio of completed developments across regional and metropolitan NSW.
+        </p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-item">
+          <p class="stat-value">2015</p>
+          <p class="stat-label">Established</p>
+        </div>
+        <div class="stat-item">
+          <p class="stat-value">$XXm+</p>
+          <p class="stat-label">Delivered</p>
+        </div>
+        <div class="stat-item">
+          <p class="stat-value">XX</p>
+          <p class="stat-label">Projects</p>
+        </div>
+        <div class="stat-item">
+          <p class="stat-value">NSW</p>
+          <p class="stat-label">Focus</p>
+        </div>
+      </div>
+
+      <p class="track-record-note">
+        Detailed case studies available upon request for qualified investors.
+      </p>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2 class="cta-title">Enquire Privately</h2>
+      <p class="cta-text">
+        We work with select investors seeking meaningful capital deployment into property development. Initial consultations are confidential and without obligation.
+      </p>
+      <a href="/enquiry" class="cta-button">Request Consultation</a>
+      <p class="cta-note">By introduction or direct approach</p>
+    </div>
+  </section>
+</BaseLayout>

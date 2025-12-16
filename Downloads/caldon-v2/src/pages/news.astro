@@ -1,0 +1,183 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const allNews = await getCollection('news', ({ data }) => !data.draft);
+const sortedNews = allNews.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+---
+
+<BaseLayout title="Media" description="Latest media and updates from CALDON.">
+  <style>
+    .page-header {
+      padding: 180px 0 80px;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .page-header {
+        padding: 200px 0 100px;
+      }
+    }
+
+    .page-label {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #858585;
+      margin-bottom: 20px;
+    }
+
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 300;
+      letter-spacing: 0.01em;
+      margin-bottom: 24px;
+      line-height: 1.15;
+      color: #0a0a0a;
+    }
+
+    .page-description {
+      font-size: 1rem;
+      color: #525252;
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    @media (min-width: 768px) {
+      .page-description {
+        font-size: 1.05rem;
+      }
+    }
+
+    .news-section {
+      padding: 0 0 120px;
+    }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .news-item {
+      padding-bottom: 48px;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .news-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .news-date {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #858585;
+      margin-bottom: 16px;
+    }
+
+    .news-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 16px;
+      line-height: 1.3;
+      color: #0a0a0a;
+    }
+
+    @media (min-width: 768px) {
+      .news-title {
+        font-size: 1.75rem;
+      }
+    }
+
+    .news-excerpt {
+      font-size: 1rem;
+      color: #525252;
+      line-height: 1.8;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 80px 24px;
+      color: #858585;
+    }
+
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        padding: 0 48px;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out forwards;
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+  </style>
+
+  <section class="page-header">
+    <div class="container">
+      <p class="page-label fade-up">Updates</p>
+      <h1 class="page-title fade-up delay-1">Media</h1>
+      <p class="page-description fade-up delay-2">
+        Latest updates from CALDON.
+      </p>
+    </div>
+  </section>
+
+  <section class="news-section">
+    <div class="container">
+      {sortedNews.length === 0 ? (
+        <div class="empty-state">
+          <p>Media and updates coming soon.</p>
+        </div>
+      ) : (
+        <div class="news-grid">
+          {sortedNews.map((article) => (
+            <article class="news-item">
+              <p class="news-date">
+                {new Date(article.data.date).toLocaleDateString('en-AU', { 
+                  day: 'numeric',
+                  month: 'long', 
+                  year: 'numeric' 
+                })}
+              </p>
+              <h2 class="news-title">{article.data.title}</h2>
+              <p class="news-excerpt">{article.data.excerpt}</p>
+            </article>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

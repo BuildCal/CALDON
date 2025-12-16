@@ -1,0 +1,208 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const projects = await getCollection('projects', ({ data }) => !data.draft);
+const sortedProjects = projects.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+---
+
+<BaseLayout title="Projects" description="Selected developments across New South Wales.">
+  <style>
+    .page-header {
+      padding: 180px 0 80px;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .page-header {
+        padding: 200px 0 100px;
+      }
+    }
+
+    .page-label {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #858585;
+      margin-bottom: 20px;
+    }
+
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 300;
+      letter-spacing: 0.01em;
+      margin-bottom: 24px;
+      line-height: 1.15;
+      color: #0a0a0a;
+    }
+
+    .page-description {
+      font-size: 1rem;
+      color: #525252;
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    @media (min-width: 768px) {
+      .page-description {
+        font-size: 1.05rem;
+      }
+    }
+
+    .projects-section {
+      padding: 0 0 120px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 64px;
+    }
+
+    @media (min-width: 768px) {
+      .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 56px 40px;
+      }
+    }
+
+    .project-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .project-image {
+      position: relative;
+      aspect-ratio: 3 / 2;
+      overflow: hidden;
+      background-color: #f5f5f5;
+      margin-bottom: 24px;
+    }
+
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .project-card:hover .project-image img {
+      transform: scale(1.03);
+    }
+
+    .project-location {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #858585;
+      margin-bottom: 8px;
+    }
+
+    .project-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 12px;
+      line-height: 1.25;
+      color: #0a0a0a;
+      transition: color 0.3s ease;
+    }
+
+    @media (min-width: 768px) {
+      .project-title {
+        font-size: 1.75rem;
+      }
+    }
+
+    .project-card:hover .project-title {
+      color: #525252;
+    }
+
+    .project-meta {
+      font-size: 0.9rem;
+      color: #525252;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 80px 24px;
+      color: #858585;
+    }
+
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        padding: 0 48px;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out forwards;
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+  </style>
+
+  <section class="page-header">
+    <div class="container">
+      <p class="page-label fade-up">Portfolio</p>
+      <h1 class="page-title fade-up delay-1">Projects</h1>
+      <p class="page-description fade-up delay-2">
+        Selected developments across New South Wales.
+      </p>
+    </div>
+  </section>
+
+  <section class="projects-section">
+    <div class="container">
+      {sortedProjects.length === 0 ? (
+        <div class="empty-state">
+          <p>Projects coming soon.</p>
+        </div>
+      ) : (
+        <div class="projects-grid">
+          {sortedProjects.map((project, i) => (
+            <a href={`/projects/${project.slug}`} class="project-card">
+              <div class="project-image">
+                <img 
+                  src={project.data.thumbnail} 
+                  alt={project.data.title} 
+                  loading={i < 4 ? 'eager' : 'lazy'} 
+                />
+              </div>
+              <p class="project-location">{project.data.location}</p>
+              <h2 class="project-title">{project.data.title}</h2>
+              <p class="project-meta">{project.data.type} · {project.data.year}</p>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

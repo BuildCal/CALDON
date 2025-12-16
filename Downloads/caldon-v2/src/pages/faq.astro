@@ -1,0 +1,366 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="FAQ" description="Frequently asked questions about partnering with CALDON.">
+  <style>
+    .page-header {
+      padding: 180px 0 60px;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .page-header {
+        padding: 200px 0 80px;
+      }
+    }
+
+    .page-label {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #858585;
+      margin-bottom: 20px;
+    }
+
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 300;
+      letter-spacing: 0.01em;
+      margin-bottom: 24px;
+      line-height: 1.15;
+      color: #0a0a0a;
+    }
+
+    .page-description {
+      font-size: 1rem;
+      color: #525252;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    @media (min-width: 768px) {
+      .page-description {
+        font-size: 1.05rem;
+      }
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      padding: 60px 0 100px;
+    }
+
+    @media (min-width: 768px) {
+      .faq-section {
+        padding: 80px 0 140px;
+      }
+    }
+
+    .faq-container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .faq-category {
+      margin-bottom: 48px;
+    }
+
+    .faq-category:last-child {
+      margin-bottom: 0;
+    }
+
+    .faq-category-title {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #858585;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .faq-item {
+      margin-bottom: 32px;
+    }
+
+    .faq-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .faq-question {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: #0a0a0a;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .faq-answer {
+      font-size: 0.95rem;
+      color: #525252;
+      line-height: 1.8;
+    }
+
+    .faq-answer p {
+      margin-bottom: 12px;
+    }
+
+    .faq-answer p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 80px 0;
+      background-color: #fafafa;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .cta-section {
+        padding: 100px 0;
+      }
+    }
+
+    .cta-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 300;
+      color: #0a0a0a;
+      margin-bottom: 16px;
+    }
+
+    .cta-text {
+      font-size: 0.95rem;
+      color: #525252;
+      margin-bottom: 32px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 16px 40px;
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #ffffff;
+      background-color: #0a0a0a;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background-color: #2a2a2a;
+    }
+
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        padding: 0 48px;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out forwards;
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+  </style>
+
+  <section class="page-header">
+    <div class="container">
+      <p class="page-label fade-up">Questions</p>
+      <h1 class="page-title fade-up delay-1">Frequently Asked</h1>
+      <p class="page-description fade-up delay-2">
+        Common questions from prospective investment partners.
+      </p>
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <div class="container">
+      <div class="faq-container">
+
+        <div class="faq-category">
+          <h2 class="faq-category-title">The Partnership</h2>
+
+          <div class="faq-item">
+            <h3 class="faq-question">What is development brokerage?</h3>
+            <div class="faq-answer">
+              <p>Development brokerage is a service where we manage the entire property development process on your behalf — from site identification and acquisition through to design, approvals, construction, and completion. You retain ownership of the asset. We handle the execution.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">Who is this service for?</h3>
+            <div class="faq-answer">
+              <p>We work with investors and business owners who have capital to deploy into property development but don't have the time, expertise, or inclination to manage the process themselves. Our partners are typically seeking development-level returns without the operational burden.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">What is the minimum investment?</h3>
+            <div class="faq-answer">
+              <p>We typically work on projects with a total development cost of $2 million or above. This ensures the project economics support our service model and delivers meaningful returns for our partners.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">What regions do you operate in?</h3>
+            <div class="faq-answer">
+              <p>We focus on regional and metropolitan New South Wales, with particular expertise in the Mid North Coast, Hunter, and Central Coast markets. We have established relationships with local councils, agents, and contractors in these areas.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-category">
+          <h2 class="faq-category-title">Process & Timeline</h2>
+
+          <div class="faq-item">
+            <h3 class="faq-question">How long does a typical project take?</h3>
+            <div class="faq-answer">
+              <p>Timelines vary based on project complexity, but a typical development runs 18–36 months from site identification to completion. We provide detailed programme estimates during the feasibility phase so you know what to expect.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">What happens if DA approval is refused?</h3>
+            <div class="faq-answer">
+              <p>Before we lodge a DA, we conduct thorough due diligence including pre-DA meetings with council. If a DA is refused, we assess the reasons and advise on options — which may include modification and resubmission, appeal, or project exit. Our option agreements are structured to protect your position in this scenario.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">Can I exit the project early?</h3>
+            <div class="faq-answer">
+              <p>Yes. Our staged fee structure includes clear exit points. If the numbers don't work at feasibility, you can walk away with full documentation and no ongoing obligation. Each phase delivers tangible value before the next payment is due.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">How often will I receive updates?</h3>
+            <div class="faq-answer">
+              <p>You'll receive quarterly progress reports with financial summaries, programme updates, and key milestone tracking. You also have direct access to your project lead for any questions between reports. No chasing required.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-category">
+          <h2 class="faq-category-title">Fees & Structure</h2>
+
+          <div class="faq-item">
+            <h3 class="faq-question">How are your fees structured?</h3>
+            <div class="faq-answer">
+              <p>Our brokerage fee is approximately 3% of the total project value, paid in stages tied to project milestones. Each stage payment is deducted from the total, so you're never paying more than the agreed fee. Client-side project management during construction is quoted separately based on project scale.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">What's included in the fee?</h3>
+            <div class="faq-answer">
+              <p>Our fee covers deal origination, project coordination, and oversight throughout the development lifecycle. Design, consultant, and statutory costs form part of the overall project budget and are managed entirely by our team.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">Can I use my own structure (trust, SMSF, company)?</h3>
+            <div class="faq-answer">
+              <p>Absolutely. We work with your accountant, solicitor, and financial adviser to ensure the investment structure is optimised from day one — whether through personal ownership, company, trust, or SMSF. Our role complements your existing advisory relationships.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-category">
+          <h2 class="faq-category-title">Risk & Protection</h2>
+
+          <div class="faq-item">
+            <h3 class="faq-question">Do you hold Professional Indemnity insurance?</h3>
+            <div class="faq-answer">
+              <p>Yes. We maintain appropriate Professional Indemnity insurance. Details can be provided during our initial discussions.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">How is my capital protected?</h3>
+            <div class="faq-answer">
+              <p>We structure acquisitions through option agreements where possible, limiting your exposure until feasibility is confirmed. Our staged fee structure means you're never overcommitted — each phase delivers tangible value before the next payment is due. We also conduct thorough due diligence before recommending any site.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">What if construction costs exceed budget?</h3>
+            <div class="faq-answer">
+              <p>Our quantity surveying and cost management processes are designed to minimise this risk. We provide detailed cost estimates before you commit to construction and include appropriate contingencies. During construction, we monitor costs closely and manage variations proactively.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-category">
+          <h2 class="faq-category-title">Getting Started</h2>
+
+          <div class="faq-item">
+            <h3 class="faq-question">What's the first step?</h3>
+            <div class="faq-answer">
+              <p>Submit an enquiry through our website or email us directly. We'll arrange a confidential consultation to understand your investment objectives, risk appetite, and preferred structures. There's no cost or obligation for this initial discussion.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">Do I need a specific project in mind?</h3>
+            <div class="faq-answer">
+              <p>No. Most of our partners come to us with investment goals rather than specific sites. We source and assess opportunities aligned with your criteria — that's part of the service.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">How quickly can we get started?</h3>
+            <div class="faq-answer">
+              <p>Once we've had an initial consultation and agreed on objectives, we can typically begin site identification within 2–4 weeks. The pace then depends on market conditions and the right opportunity presenting itself.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <h2 class="cta-title">Still Have Questions?</h2>
+      <p class="cta-text">
+        We're happy to discuss your specific situation in a confidential consultation.
+      </p>
+      <a href="/enquiry" class="cta-button">Get in Touch</a>
+    </div>
+  </section>
+</BaseLayout>

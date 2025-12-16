@@ -1,0 +1,1087 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Process" description="Our development brokerage process — from strategy through to project completion.">
+  <style>
+    .page-header {
+      padding: 180px 0 80px;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .page-header {
+        padding: 200px 0 100px;
+      }
+    }
+
+    .page-label {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #858585;
+      margin-bottom: 20px;
+    }
+
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 300;
+      letter-spacing: 0.01em;
+      margin-bottom: 24px;
+      line-height: 1.15;
+      color: #0a0a0a;
+    }
+
+    .page-description {
+      font-size: 1rem;
+      color: #525252;
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    @media (min-width: 768px) {
+      .page-description {
+        font-size: 1.05rem;
+      }
+    }
+
+    /* Intro Section */
+    .intro-section {
+      padding: 0 0 80px;
+    }
+
+    @media (min-width: 768px) {
+      .intro-section {
+        padding: 0 0 120px;
+      }
+    }
+
+    .intro-content {
+      max-width: 720px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .intro-text {
+      font-size: 1.1rem;
+      color: #525252;
+      line-height: 1.9;
+      margin-bottom: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .intro-text {
+        font-size: 1.15rem;
+      }
+    }
+
+    /* Fee Structure Section */
+    .fees-section {
+      padding: 80px 0;
+      background-color: #0a0a0a;
+      color: #ffffff;
+    }
+
+    @media (min-width: 768px) {
+      .fees-section {
+        padding: 120px 0;
+      }
+    }
+
+    .fees-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    @media (min-width: 768px) {
+      .fees-header {
+        margin-bottom: 64px;
+      }
+    }
+
+    .fees-label {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #858585;
+      margin-bottom: 16px;
+    }
+
+    .fees-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 300;
+      color: #ffffff;
+    }
+
+    .fees-timeline {
+      max-width: 600px;
+      margin: 0 auto 64px;
+    }
+
+    .fee-stage {
+      display: flex;
+      gap: 24px;
+      padding-bottom: 32px;
+    }
+
+    .fee-stage:last-child {
+      padding-bottom: 0;
+    }
+
+    .fee-stage-marker {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+      width: 20px;
+    }
+
+    .fee-stage-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #ffffff;
+      border: 2px solid #858585;
+      flex-shrink: 0;
+    }
+
+    .fee-stage-line {
+      width: 1px;
+      flex-grow: 1;
+      background-color: #3a3a3a;
+      margin-top: 8px;
+    }
+
+    .fee-stage-separate {
+      margin-top: 32px;
+      padding-top: 32px;
+      border-top: 1px solid #3a3a3a;
+    }
+
+    .fee-stage-separate .fee-stage-dot {
+      background-color: #0a0a0a;
+      border-color: #ffffff;
+    }
+
+    .fee-stage-content {
+      flex-grow: 1;
+      padding-bottom: 8px;
+    }
+
+    .fee-stage-label {
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #858585;
+      margin-bottom: 8px;
+    }
+
+    .fee-stage-amount {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 300;
+      color: #ffffff;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .fee-stage-amount span {
+      font-family: inherit;
+      font-size: 1rem;
+      color: #858585;
+    }
+
+    .fee-stage-description {
+      font-size: 0.85rem;
+      color: #a0a0a0;
+      line-height: 1.7;
+    }
+
+    .fee-stage-note {
+      margin-top: 12px;
+      font-size: 0.8rem;
+      color: #666666;
+      font-style: italic;
+    }
+
+    .fees-summary {
+      max-width: 600px;
+      margin: 0 auto 48px;
+      padding: 32px;
+      border: 1px solid #3a3a3a;
+      text-align: center;
+    }
+
+    .fees-summary-label {
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #858585;
+      margin-bottom: 8px;
+    }
+
+    .fees-summary-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .fees-summary-value span {
+      font-family: inherit;
+      font-size: 1.1rem;
+      color: #858585;
+    }
+
+    .fees-summary-note {
+      margin-top: 12px;
+      font-size: 0.8rem;
+      color: #666666;
+    }
+
+    .fees-additional {
+      max-width: 720px;
+      margin: 0 auto;
+      text-align: center;
+      padding-top: 48px;
+      border-top: 1px solid #2a2a2a;
+    }
+
+    .fees-additional-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+
+    .fees-additional-text {
+      font-size: 0.9rem;
+      color: #a0a0a0;
+      line-height: 1.8;
+    }
+
+    /* Why This Structure */
+    .rationale-section {
+      padding: 80px 0;
+    }
+
+    @media (min-width: 768px) {
+      .rationale-section {
+        padding: 120px 0;
+      }
+    }
+
+    .rationale-content {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .rationale-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 300;
+      color: #0a0a0a;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .rationale-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    @media (min-width: 600px) {
+      .rationale-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
+      }
+    }
+
+    .rationale-item {
+      text-align: center;
+    }
+
+    .rationale-item-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: #0a0a0a;
+      margin-bottom: 12px;
+    }
+
+    .rationale-item-text {
+      font-size: 0.85rem;
+      color: #525252;
+      line-height: 1.7;
+    }
+
+    /* Process Section */
+    .process-section {
+      padding: 80px 0;
+      background-color: #fafafa;
+    }
+
+    @media (min-width: 768px) {
+      .process-section {
+        padding: 120px 0;
+      }
+    }
+
+    .process-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    @media (min-width: 768px) {
+      .process-header {
+        margin-bottom: 80px;
+      }
+    }
+
+    .process-header-label {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #858585;
+      margin-bottom: 16px;
+    }
+
+    .process-header-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 300;
+      color: #0a0a0a;
+    }
+
+    /* Phase Cards */
+    .phases-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .phase-group {
+      margin-bottom: 64px;
+    }
+
+    .phase-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .phase-group-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid #0a0a0a;
+    }
+
+    .phase-group-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 400;
+      color: #0a0a0a;
+    }
+
+    .phase-group-fee {
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #ffffff;
+      padding: 6px 12px;
+      background-color: #0a0a0a;
+    }
+
+    .phase {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      padding: 32px 0;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    @media (min-width: 768px) {
+      .phase {
+        grid-template-columns: 180px 1fr;
+        gap: 40px;
+        padding: 40px 0;
+      }
+    }
+
+    .phase:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .phase-header {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .phase-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: #e0e0e0;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .phase-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: #0a0a0a;
+      line-height: 1.3;
+    }
+
+    .phase-content p {
+      font-size: 0.9rem;
+      color: #525252;
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .phase-content p:last-of-type {
+      margin-bottom: 20px;
+    }
+
+    .deliverables-title {
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #858585;
+      margin-bottom: 10px;
+    }
+
+    .deliverables-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+
+    @media (min-width: 600px) {
+      .deliverables-list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px 20px;
+      }
+    }
+
+    .deliverables-list li {
+      position: relative;
+      padding-left: 14px;
+      font-size: 0.85rem;
+      color: #0a0a0a;
+      line-height: 1.5;
+    }
+
+    .deliverables-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 5px;
+      height: 1px;
+      background-color: #0a0a0a;
+    }
+
+    /* Additional Services */
+    .additional-section {
+      padding: 80px 0;
+    }
+
+    @media (min-width: 768px) {
+      .additional-section {
+        padding: 120px 0;
+      }
+    }
+
+    .additional-content {
+      max-width: 720px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .additional-label {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #858585;
+      margin-bottom: 16px;
+    }
+
+    .additional-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 300;
+      color: #0a0a0a;
+      margin-bottom: 24px;
+    }
+
+    .additional-intro {
+      font-size: 1rem;
+      color: #525252;
+      line-height: 1.8;
+    }
+
+    .additional-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      text-align: left;
+      margin-top: 40px;
+    }
+
+    @media (min-width: 600px) {
+      .additional-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+      }
+    }
+
+    .additional-item {
+      padding: 28px;
+      background-color: #fafafa;
+    }
+
+    .additional-item-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: #0a0a0a;
+      margin-bottom: 8px;
+    }
+
+    .additional-item-text {
+      font-size: 0.85rem;
+      color: #525252;
+      line-height: 1.7;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 80px 0;
+      background-color: #fafafa;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .cta-section {
+        padding: 120px 0;
+      }
+    }
+
+    .cta-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 300;
+      color: #0a0a0a;
+      margin-bottom: 16px;
+    }
+
+    .cta-text {
+      font-size: 1rem;
+      color: #525252;
+      margin-bottom: 32px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.8;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 16px 40px;
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #ffffff;
+      background-color: #0a0a0a;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background-color: #2a2a2a;
+    }
+
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        padding: 0 48px;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out forwards;
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+  </style>
+
+  <section class="page-header">
+    <div class="container">
+      <p class="page-label fade-up">Engagement Structure</p>
+      <h1 class="page-title fade-up delay-1">Our Process</h1>
+      <p class="page-description fade-up delay-2">
+        A staged pathway from initial consultation through to project completion and exit.
+      </p>
+    </div>
+  </section>
+
+  <section class="intro-section">
+    <div class="container">
+      <div class="intro-content">
+        <p class="intro-text">
+          Our engagement is structured to align with how sophisticated investors operate — staged commitments, clear decision points, and full transparency on fees before any capital is deployed.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="fees-section">
+    <div class="container">
+      <div class="fees-header">
+        <p class="fees-label">Investment</p>
+        <h2 class="fees-title">Fee Structure</h2>
+      </div>
+
+      <div class="fees-timeline">
+        <div class="fee-stage">
+          <div class="fee-stage-marker">
+            <span class="fee-stage-dot"></span>
+            <span class="fee-stage-line"></span>
+          </div>
+          <div class="fee-stage-content">
+            <p class="fee-stage-label">Initial Consultation</p>
+            <p class="fee-stage-amount">No Cost</p>
+            <p class="fee-stage-description">
+              Introductory meeting to understand your objectives and assess fit. No obligation.
+            </p>
+          </div>
+        </div>
+
+        <div class="fee-stage">
+          <div class="fee-stage-marker">
+            <span class="fee-stage-dot"></span>
+            <span class="fee-stage-line"></span>
+          </div>
+          <div class="fee-stage-content">
+            <p class="fee-stage-label">Preliminary Agreement</p>
+            <p class="fee-stage-amount">POA</p>
+            <p class="fee-stage-description">
+              Payable following initial discussions. Covers investment strategy, site identification, option negotiation, concept design, and feasibility assessment. Fee based on project scope and complexity.
+            </p>
+            <p class="fee-stage-note">Deducted from total Project Fee.</p>
+          </div>
+        </div>
+
+        <div class="fee-stage">
+          <div class="fee-stage-marker">
+            <span class="fee-stage-dot"></span>
+            <span class="fee-stage-line"></span>
+          </div>
+          <div class="fee-stage-content">
+            <p class="fee-stage-label">Project Fee — Stage 1</p>
+            <p class="fee-stage-amount">POA</p>
+            <p class="fee-stage-description">
+              Payable once project costs are established and feasibility confirmed. Covers detailed design, engineering, consultant coordination, and site acquisition.
+            </p>
+            <p class="fee-stage-note">Deducted from total Project Fee.</p>
+          </div>
+        </div>
+
+        <div class="fee-stage">
+          <div class="fee-stage-marker">
+            <span class="fee-stage-dot"></span>
+            <span class="fee-stage-line"></span>
+          </div>
+          <div class="fee-stage-content">
+            <p class="fee-stage-label">Project Fee — Stage 2</p>
+            <p class="fee-stage-amount">POA</p>
+            <p class="fee-stage-description">
+              Payable upon Development Application approval. Covers tender preparation, builder engagement, and contract award.
+            </p>
+            <p class="fee-stage-note">Deducted from total Project Fee.</p>
+          </div>
+        </div>
+
+        <div class="fee-stage">
+          <div class="fee-stage-marker">
+            <span class="fee-stage-dot"></span>
+            <span class="fee-stage-line"></span>
+          </div>
+          <div class="fee-stage-content">
+            <p class="fee-stage-label">Project Fee — Stage 3</p>
+            <p class="fee-stage-amount">Balance</p>
+            <p class="fee-stage-description">
+              Remaining Project Fee payable upon Construction Certificate issued and builder awarded.
+            </p>
+          </div>
+        </div>
+
+        <div class="fee-stage fee-stage-separate">
+          <div class="fee-stage-marker">
+            <span class="fee-stage-dot"></span>
+          </div>
+          <div class="fee-stage-content">
+            <p class="fee-stage-label">Client-Side Project Management</p>
+            <p class="fee-stage-amount">Quoted separately</p>
+            <p class="fee-stage-description">
+              Ongoing project management throughout construction—progress monitoring, variation assessment, quality oversight, and reporting through to completion and handover.
+            </p>
+            <p class="fee-stage-note">Fee based on project scale and complexity.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="fees-summary">
+        <div class="fees-summary-item">
+          <p class="fees-summary-label">Total Project Fee</p>
+          <p class="fees-summary-value">~3% <span>of total project value</span></p>
+          <p class="fees-summary-note">Preliminary, Stage 1, and Stage 2 payments are deducted from the total. Balance paid at construction commencement. Final percentage confirmed prior to engagement.</p>
+        </div>
+      </div>
+
+      <div class="fees-additional">
+        <h3 class="fees-additional-title">Full-Service Delivery</h3>
+        <p class="fees-additional-text">
+          We manage the complete development lifecycle — from site sourcing through to project completion. Design, consultant, and statutory costs form part of the overall project budget and are managed entirely by our team.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="rationale-section">
+    <div class="container">
+      <div class="rationale-content">
+        <h2 class="rationale-title">Why This Structure</h2>
+        <div class="rationale-grid">
+          <div class="rationale-item">
+            <h3 class="rationale-item-title">Aligned Interests</h3>
+            <p class="rationale-item-text">
+              Our fees are tied to project milestones. We're incentivised to move your project forward efficiently — not to extend timelines.
+            </p>
+          </div>
+          <div class="rationale-item">
+            <h3 class="rationale-item-title">Managed Commitment</h3>
+            <p class="rationale-item-text">
+              Staged payments mean you're never overcommitted. Each phase delivers tangible value before the next payment is due.
+            </p>
+          </div>
+          <div class="rationale-item">
+            <h3 class="rationale-item-title">Clear Exit Points</h3>
+            <p class="rationale-item-text">
+              If the numbers don't work at feasibility, you walk away with full documentation. No ongoing obligation beyond work completed.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="process-section">
+    <div class="container">
+      <div class="process-header">
+        <p class="process-header-label">The Pathway</p>
+        <h2 class="process-header-title">What We Deliver</h2>
+      </div>
+
+      <div class="phases-container">
+        
+        <!-- Preliminary Agreement Phase -->
+        <div class="phase-group">
+          <div class="phase-group-header">
+            <h3 class="phase-group-title">Preliminary Agreement</h3>
+            <span class="phase-group-fee">POA</span>
+          </div>
+
+          <div class="phase">
+            <div class="phase-header">
+              <span class="phase-number">01</span>
+              <h4 class="phase-title">Strategy & Site Identification</h4>
+            </div>
+            <div class="phase-content">
+              <p>
+                We begin with a detailed consultation to understand your investment objectives, risk profile, and return expectations. From this, we develop a tailored strategy and identify sites that align with your criteria.
+              </p>
+              <p class="deliverables-title">Deliverables</p>
+              <ul class="deliverables-list">
+                <li>Investment strategy document</li>
+                <li>Site identification report</li>
+                <li>Market analysis</li>
+                <li>Risk assessment</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="phase">
+            <div class="phase-header">
+              <span class="phase-number">02</span>
+              <h4 class="phase-title">Option & Due Diligence</h4>
+            </div>
+            <div class="phase-content">
+              <p>
+                Once a suitable site is identified, we negotiate terms with the vendor and secure the opportunity through an option agreement or refundable holding deposit—protecting your position while due diligence is completed.
+              </p>
+              <p class="deliverables-title">Deliverables</p>
+              <ul class="deliverables-list">
+                <li>Option agreement or holding deposit</li>
+                <li>Due diligence coordination</li>
+                <li>Title and zoning review</li>
+                <li>Preliminary site assessment</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="phase">
+            <div class="phase-header">
+              <span class="phase-number">03</span>
+              <h4 class="phase-title">Concept & Feasibility</h4>
+            </div>
+            <div class="phase-content">
+              <p>
+                We develop preliminary concept plans and prepare a detailed feasibility assessment. You'll receive construction cost estimates, projected returns, and a clear recommendation on whether to proceed.
+              </p>
+              <p class="deliverables-title">Deliverables</p>
+              <ul class="deliverables-list">
+                <li>Preliminary concept plans</li>
+                <li>Feasibility model</li>
+                <li>Cost estimate</li>
+                <li>Proceed/no-proceed recommendation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Fee Stage 1 -->
+        <div class="phase-group">
+          <div class="phase-group-header">
+            <h3 class="phase-group-title">Project Fee — Stage 1</h3>
+            <span class="phase-group-fee">POA</span>
+          </div>
+
+          <div class="phase">
+            <div class="phase-header">
+              <span class="phase-number">04</span>
+              <h4 class="phase-title">Design Development</h4>
+            </div>
+            <div class="phase-content">
+              <p>
+                With feasibility confirmed, we progress to detailed design. Our team coordinates architects, engineers, and specialist consultants to develop the project to DA-ready status with a complete bill of materials and final construction costing.
+              </p>
+              <p class="deliverables-title">Deliverables</p>
+              <ul class="deliverables-list">
+                <li>Detailed architectural plans</li>
+                <li>Engineering documentation</li>
+                <li>Consultant reports</li>
+                <li>Bill of materials</li>
+                <li>Final construction costing</li>
+                <li>Updated feasibility</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="phase">
+            <div class="phase-header">
+              <span class="phase-number">05</span>
+              <h4 class="phase-title">Acquisition</h4>
+            </div>
+            <div class="phase-content">
+              <p>
+                We assist you in completing the site acquisition—coordinating with solicitors, financiers, and the vendor to ensure smooth settlement. All conditions precedent are managed and your interests protected throughout.
+              </p>
+              <p class="deliverables-title">Deliverables</p>
+              <ul class="deliverables-list">
+                <li>Contract negotiation support</li>
+                <li>Finance coordination</li>
+                <li>Settlement management</li>
+                <li>Title transfer oversight</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Fee Stage 2 -->
+        <div class="phase-group">
+          <div class="phase-group-header">
+            <h3 class="phase-group-title">Project Fee — Stage 2</h3>
+            <span class="phase-group-fee">POA</span>
+          </div>
+
+          <div class="phase">
+            <div class="phase-header">
+              <span class="phase-number">06</span>
+              <h4 class="phase-title">Approvals & Tender</h4>
+            </div>
+            <div class="phase-content">
+              <p>
+                We lodge the Development Application and manage it through to determination. Concurrently, we engage suitable builders, prepare the tender package, assess submissions, and guide you through builder selection and contract award.
+              </p>
+              <p class="deliverables-title">Deliverables</p>
+              <ul class="deliverables-list">
+                <li>DA lodgement and management</li>
+                <li>Council liaison</li>
+                <li>Tender package</li>
+                <li>Builder shortlist</li>
+                <li>Tender assessment</li>
+                <li>Contract award recommendation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Fee Stage 3 -->
+        <div class="phase-group">
+          <div class="phase-group-header">
+            <h3 class="phase-group-title">Project Fee — Stage 3</h3>
+            <span class="phase-group-fee">Balance at CC + builder award</span>
+          </div>
+
+          <div class="phase">
+            <div class="phase-header">
+              <span class="phase-number">07</span>
+              <h4 class="phase-title">Construction Certificate & Builder Award</h4>
+            </div>
+            <div class="phase-content">
+              <p>
+                Final stage payment triggers upon Construction Certificate approval and builder contract execution. At this point, the project is fully approved and ready to commence construction.
+              </p>
+              <p class="deliverables-title">Deliverables</p>
+              <ul class="deliverables-list">
+                <li>Construction Certificate</li>
+                <li>Executed builder contract</li>
+                <li>Final programme confirmation</li>
+                <li>Pre-construction documentation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Client-Side PM -->
+        <div class="phase-group">
+          <div class="phase-group-header">
+            <h3 class="phase-group-title">Client-Side Project Management</h3>
+            <span class="phase-group-fee">Separate fee</span>
+          </div>
+
+          <div class="phase">
+            <div class="phase-header">
+              <span class="phase-number">08</span>
+              <h4 class="phase-title">Project Delivery</h4>
+            </div>
+            <div class="phase-content">
+              <p>
+                Client-side project management throughout construction. We monitor progress, manage variations, coordinate consultants, and maintain quality and programme oversight. Regular reporting keeps you informed without requiring day-to-day involvement.
+              </p>
+              <p class="deliverables-title">Deliverables</p>
+              <ul class="deliverables-list">
+                <li>Client-side project management</li>
+                <li>Progress monitoring</li>
+                <li>Variation assessment</li>
+                <li>Quality oversight</li>
+                <li>Regular progress reports</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="phase">
+            <div class="phase-header">
+              <span class="phase-number">09</span>
+              <h4 class="phase-title">Completion & Handover</h4>
+            </div>
+            <div class="phase-content">
+              <p>
+                We coordinate final inspections, defect rectification, and formal handover. A quantity surveying package is prepared to maximise your depreciation entitlements and investment returns.
+              </p>
+              <p class="deliverables-title">Deliverables</p>
+              <ul class="deliverables-list">
+                <li>Final inspection coordination</li>
+                <li>Defects management</li>
+                <li>Quantity surveyor's report</li>
+                <li>Depreciation schedule</li>
+                <li>As-built documentation</li>
+                <li>Handover package</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="additional-section">
+    <div class="container">
+      <div class="additional-content">
+        <p class="additional-label">Exit Strategy</p>
+        <h2 class="additional-title">Post-Completion Services</h2>
+        <p class="additional-intro">
+          We support flexible exit strategies based on your investment objectives — hold, lease, sell, or refinance.
+        </p>
+
+        <div class="additional-grid">
+          <div class="additional-item">
+            <h3 class="additional-item-title">Leasing & Tenancy</h3>
+            <p class="additional-item-text">
+              Negotiation of heads of agreement with prospective tenants. Coordination with leasing agents to secure quality tenancies aligned with your yield requirements.
+            </p>
+          </div>
+          <div class="additional-item">
+            <h3 class="additional-item-title">Sales & Divestment</h3>
+            <p class="additional-item-text">
+              Marketing strategy development and campaign management for sale upon completion. Coordination with sales agents to maximise returns.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <h2 class="cta-title">Discuss an Opportunity</h2>
+      <p class="cta-text">
+        If you're considering capital deployment into property development and would like to explore whether there's a fit, we welcome a private conversation.
+      </p>
+      <a href="/enquiry" class="cta-button">Private Enquiry</a>
+    </div>
+  </section>
+</BaseLayout>

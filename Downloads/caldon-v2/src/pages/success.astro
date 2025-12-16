@@ -1,0 +1,147 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Enquiry Received" description="Thank you for your enquiry.">
+  <style>
+    .success-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 160px 24px 100px;
+    }
+
+    @media (min-width: 768px) {
+      .success-page {
+        padding: 200px 48px 140px;
+      }
+    }
+
+    .success-content {
+      max-width: 500px;
+    }
+
+    .success-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 32px;
+      border: 2px solid #0a0a0a;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .success-icon svg {
+      width: 28px;
+      height: 28px;
+      stroke: #0a0a0a;
+    }
+
+    .success-label {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #858585;
+      margin-bottom: 16px;
+    }
+
+    .success-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 300;
+      letter-spacing: 0.01em;
+      margin-bottom: 24px;
+      line-height: 1.2;
+      color: #0a0a0a;
+    }
+
+    .success-message {
+      font-size: 1rem;
+      color: #525252;
+      line-height: 1.8;
+      margin-bottom: 48px;
+    }
+
+    .success-details {
+      padding: 24px;
+      background-color: #fafafa;
+      margin-bottom: 48px;
+    }
+
+    .success-details p {
+      font-size: 0.9rem;
+      color: #525252;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .success-details strong {
+      color: #0a0a0a;
+    }
+
+    .success-link {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #0a0a0a;
+      text-decoration: none;
+      padding-bottom: 4px;
+      border-bottom: 1px solid #0a0a0a;
+      transition: color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .success-link:hover {
+      color: #525252;
+      border-color: #525252;
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out forwards;
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+  </style>
+
+  <section class="success-page">
+    <div class="success-content">
+      <div class="success-icon fade-up">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+        </svg>
+      </div>
+      <p class="success-label fade-up delay-1">Enquiry Received</p>
+      <h1 class="success-title fade-up delay-2">Thank You</h1>
+      <p class="success-message fade-up delay-3">
+        We've received your enquiry and will be in touch shortly to discuss your investment objectives.
+      </p>
+      <div class="success-details fade-up delay-3">
+        <p><strong>What happens next?</strong><br>
+        A member of our team will review your enquiry and respond within 48 hours to arrange a confidential consultation.</p>
+      </div>
+      <a href="/" class="success-link fade-up delay-4">Return to Home</a>
+    </div>
+  </section>
+</BaseLayout>

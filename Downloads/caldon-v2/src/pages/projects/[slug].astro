@@ -1,0 +1,814 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects', ({ data }) => !data.draft);
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+const { data } = project;
+
+const allProjects = await getCollection('projects', ({ data }) => !data.draft);
+const otherProjects = allProjects.filter(p => p.slug !== project.slug).slice(0, 2);
+
+// Check if metrics exist
+const hasMetrics = data.metrics && Object.keys(data.metrics).length > 0;
+---
+
+<BaseLayout title={data.title} description={data.description}>
+  <style>
+    .project-hero {
+      margin-top: 72px;
+      height: 60vh;
+      min-height: 400px;
+      max-height: 700px;
+      position: relative;
+      overflow: hidden;
+      background-color: #f5f5f5;
+    }
+
+    @media (min-width: 768px) {
+      .project-hero {
+        height: 70vh;
+        min-height: 500px;
+      }
+    }
+
+    .project-hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .project-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
+    }
+
+    .project-hero-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 48px 24px;
+      color: white;
+    }
+
+    @media (min-width: 768px) {
+      .project-hero-content {
+        padding: 64px 48px;
+      }
+    }
+
+    .project-hero-location {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.9;
+      margin-bottom: 12px;
+    }
+
+    .project-hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 300;
+      letter-spacing: 0.01em;
+      line-height: 1.15;
+    }
+
+    .project-content {
+      padding: 80px 0;
+    }
+
+    @media (min-width: 768px) {
+      .project-content {
+        padding: 120px 0;
+      }
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #858585;
+      margin-bottom: 48px;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: #0a0a0a;
+    }
+
+    .back-link svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.3s ease;
+    }
+
+    .back-link:hover svg {
+      transform: translateX(-4px);
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 64px;
+    }
+
+    @media (min-width: 992px) {
+      .project-grid {
+        grid-template-columns: 1fr 320px;
+        gap: 80px;
+      }
+    }
+
+    .project-main h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 400;
+      margin-bottom: 24px;
+      color: #0a0a0a;
+    }
+
+    .project-main :global(p) {
+      font-size: 1rem;
+      color: #525252;
+      line-height: 1.9;
+      margin-bottom: 24px;
+    }
+
+    .project-main :global(h2) {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: #0a0a0a;
+      margin-top: 48px;
+      margin-bottom: 16px;
+    }
+
+    .highlights-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      margin-top: 48px;
+      margin-bottom: 20px;
+      color: #0a0a0a;
+    }
+
+    .highlights-list {
+      list-style: none;
+    }
+
+    .highlights-list li {
+      position: relative;
+      padding-left: 20px;
+      font-size: 0.95rem;
+      color: #525252;
+      margin-bottom: 12px;
+      line-height: 1.7;
+    }
+
+    .highlights-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 6px;
+      height: 1px;
+      background-color: #858585;
+    }
+
+    /* Metrics Section */
+    .metrics-section {
+      margin-top: 64px;
+      padding-top: 48px;
+      border-top: 1px solid #e5e5e5;
+    }
+
+    .metrics-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      margin-bottom: 32px;
+      color: #0a0a0a;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+
+    @media (min-width: 768px) {
+      .metrics-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+      }
+    }
+
+    .metric-item {
+      text-align: left;
+    }
+
+    .metric-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      color: #0a0a0a;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    @media (min-width: 768px) {
+      .metric-value {
+        font-size: 2.5rem;
+      }
+    }
+
+    .metric-label {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #858585;
+    }
+
+    .metric-note {
+      font-size: 0.8rem;
+      color: #858585;
+      margin-top: 4px;
+      font-style: italic;
+    }
+
+    .project-sidebar {
+      position: sticky;
+      top: 120px;
+      height: fit-content;
+    }
+
+    @media (max-width: 991px) {
+      .project-sidebar {
+        position: static;
+      }
+    }
+
+    .details-card {
+      border: 1px solid #e5e5e5;
+      padding: 32px;
+    }
+
+    .details-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #e5e5e5;
+      color: #0a0a0a;
+    }
+
+    .detail-item {
+      margin-bottom: 20px;
+    }
+
+    .detail-label {
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #858585;
+      margin-bottom: 4px;
+    }
+
+    .detail-value {
+      font-size: 0.95rem;
+      color: #0a0a0a;
+    }
+
+    .enquire-btn {
+      display: block;
+      width: 100%;
+      padding: 16px 24px;
+      margin-top: 32px;
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-align: center;
+      color: #ffffff;
+      background-color: #0a0a0a;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .enquire-btn:hover {
+      background-color: #2a2a2a;
+    }
+
+    .project-gallery {
+      padding: 0 0 120px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+    }
+
+    .gallery-item {
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background-color: #f5f5f5;
+      cursor: pointer;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.03);
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.95);
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox-image {
+      max-width: 100%;
+      max-height: 90vh;
+      object-fit: contain;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -48px;
+      right: 0;
+      width: 40px;
+      height: 40px;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.3s ease;
+    }
+
+    .lightbox-close:hover {
+      border-color: rgba(255, 255, 255, 0.6);
+    }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.3s ease;
+    }
+
+    .lightbox-nav:hover {
+      border-color: rgba(255, 255, 255, 0.6);
+    }
+
+    .lightbox-prev {
+      left: 24px;
+    }
+
+    .lightbox-next {
+      right: 24px;
+    }
+
+    .lightbox-counter {
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+    }
+
+    .related-section {
+      padding: 80px 0;
+      background-color: #fafafa;
+    }
+
+    @media (min-width: 768px) {
+      .related-section {
+        padding: 120px 0;
+      }
+    }
+
+    .related-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .related-label {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #858585;
+      margin-bottom: 12px;
+    }
+
+    .related-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 300;
+      color: #0a0a0a;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+
+    @media (min-width: 768px) {
+      .related-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+      }
+    }
+
+    .related-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .related-card-image {
+      aspect-ratio: 3 / 2;
+      overflow: hidden;
+      background-color: #ffffff;
+      margin-bottom: 20px;
+    }
+
+    .related-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .related-card:hover .related-card-image img {
+      transform: scale(1.03);
+    }
+
+    .related-card-location {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #858585;
+      margin-bottom: 6px;
+    }
+
+    .related-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: #0a0a0a;
+      transition: color 0.3s ease;
+    }
+
+    .related-card:hover .related-card-title {
+      color: #525252;
+    }
+
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        padding: 0 48px;
+      }
+    }
+  </style>
+
+  <section class="project-hero">
+    <img src={data.heroImage} alt={data.title} />
+    <div class="project-hero-overlay"></div>
+    <div class="project-hero-content">
+      <div class="container">
+        <p class="project-hero-location">{data.location}</p>
+        <h1 class="project-hero-title">{data.title}</h1>
+      </div>
+    </div>
+  </section>
+
+  <section class="project-content">
+    <div class="container">
+      <a href="/projects" class="back-link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Back to Projects
+      </a>
+      
+      <div class="project-grid">
+        <div class="project-main">
+          <h2>Overview</h2>
+          <Content />
+          
+          {data.highlights && data.highlights.length > 0 && (
+            <>
+              <h3 class="highlights-title">Highlights</h3>
+              <ul class="highlights-list">
+                {data.highlights.map((h: string) => <li>{h}</li>)}
+              </ul>
+            </>
+          )}
+
+          {hasMetrics && (
+            <div class="metrics-section">
+              <h3 class="metrics-title">Performance</h3>
+              <div class="metrics-grid">
+                {data.metrics.acquisitionPrice && (
+                  <div class="metric-item">
+                    <p class="metric-value">{data.metrics.acquisitionPrice}</p>
+                    <p class="metric-label">Acquisition</p>
+                  </div>
+                )}
+                {data.metrics.totalRevenue && (
+                  <div class="metric-item">
+                    <p class="metric-value">{data.metrics.totalRevenue}</p>
+                    <p class="metric-label">Total Revenue</p>
+                  </div>
+                )}
+                {data.metrics.roi && (
+                  <div class="metric-item">
+                    <p class="metric-value">{data.metrics.roi}</p>
+                    <p class="metric-label">ROI</p>
+                  </div>
+                )}
+                {data.metrics.profit && (
+                  <div class="metric-item">
+                    <p class="metric-value">{data.metrics.profit}</p>
+                    <p class="metric-label">Net Profit</p>
+                  </div>
+                )}
+                {data.metrics.timeline && (
+                  <div class="metric-item">
+                    <p class="metric-value">{data.metrics.timeline}</p>
+                    <p class="metric-label">Timeline</p>
+                  </div>
+                )}
+                {data.metrics.lotsSold && (
+                  <div class="metric-item">
+                    <p class="metric-value">{data.metrics.lotsSold}</p>
+                    <p class="metric-label">Lots Sold</p>
+                  </div>
+                )}
+                {data.metrics.avgLotPrice && (
+                  <div class="metric-item">
+                    <p class="metric-value">{data.metrics.avgLotPrice}</p>
+                    <p class="metric-label">Avg Lot Price</p>
+                  </div>
+                )}
+                {data.metrics.daysOnMarket && (
+                  <div class="metric-item">
+                    <p class="metric-value">{data.metrics.daysOnMarket}</p>
+                    <p class="metric-label">Days on Market</p>
+                  </div>
+                )}
+                {data.metrics.yield && (
+                  <div class="metric-item">
+                    <p class="metric-value">{data.metrics.yield}</p>
+                    <p class="metric-label">Yield</p>
+                  </div>
+                )}
+                {data.metrics.capitalGrowth && (
+                  <div class="metric-item">
+                    <p class="metric-value">{data.metrics.capitalGrowth}</p>
+                    <p class="metric-label">Capital Growth</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+        
+        <aside class="project-sidebar">
+          <div class="details-card">
+            <h3 class="details-card-title">Details</h3>
+            <div class="detail-item">
+              <p class="detail-label">Location</p>
+              <p class="detail-value">{data.fullAddress}</p>
+            </div>
+            <div class="detail-item">
+              <p class="detail-label">Type</p>
+              <p class="detail-value">{data.type}</p>
+            </div>
+            <div class="detail-item">
+              <p class="detail-label">Scale</p>
+              <p class="detail-value">{data.units}</p>
+            </div>
+            <div class="detail-item">
+              <p class="detail-label">Year</p>
+              <p class="detail-value">{data.year}</p>
+            </div>
+            <div class="detail-item">
+              <p class="detail-label">Council</p>
+              <p class="detail-value">{data.council}</p>
+            </div>
+            {data.status && (
+              <div class="detail-item">
+                <p class="detail-label">Status</p>
+                <p class="detail-value">{data.status}</p>
+              </div>
+            )}
+            <a href="/contact" class="enquire-btn">Enquire</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  {data.gallery && data.gallery.length > 0 && (
+    <>
+      <section class="project-gallery">
+        <div class="container">
+          <div class="gallery-grid">
+            {data.gallery.map((item: {image: string}, i: number) => (
+              <div class="gallery-item" data-gallery-index={i} data-gallery-image={item.image}>
+                <img src={item.image} alt={`${data.title} - Image ${i + 1}`} loading="lazy" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      
+      <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+          <button class="lightbox-close" id="lightbox-close">×</button>
+          <button class="lightbox-nav lightbox-prev" id="lightbox-prev">‹</button>
+          <img class="lightbox-image" id="lightbox-image" src="" alt="" />
+          <button class="lightbox-nav lightbox-next" id="lightbox-next">›</button>
+          <div class="lightbox-counter" id="lightbox-counter"></div>
+        </div>
+      </div>
+      
+      <script>
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightbox-image') as HTMLImageElement;
+        const lightboxClose = document.getElementById('lightbox-close');
+        const lightboxPrev = document.getElementById('lightbox-prev');
+        const lightboxNext = document.getElementById('lightbox-next');
+        const lightboxCounter = document.getElementById('lightbox-counter');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        
+        let currentIndex = 0;
+        let images: string[] = [];
+        
+        galleryItems.forEach(item => {
+          const img = item.getAttribute('data-gallery-image');
+          if (img) images.push(img);
+        });
+        
+        function openLightbox(index: number) {
+          currentIndex = index;
+          if (lightboxImage && images[index]) {
+            lightboxImage.src = images[index];
+            updateCounter();
+            lightbox?.classList.add('active');
+            document.body.style.overflow = 'hidden';
+          }
+        }
+        
+        function closeLightbox() {
+          lightbox?.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+        
+        function updateCounter() {
+          if (lightboxCounter) {
+            lightboxCounter.textContent = `${currentIndex + 1} / ${images.length}`;
+          }
+        }
+        
+        function showNext() {
+          currentIndex = (currentIndex + 1) % images.length;
+          if (lightboxImage && images[currentIndex]) {
+            lightboxImage.src = images[currentIndex];
+            updateCounter();
+          }
+        }
+        
+        function showPrev() {
+          currentIndex = (currentIndex - 1 + images.length) % images.length;
+          if (lightboxImage && images[currentIndex]) {
+            lightboxImage.src = images[currentIndex];
+            updateCounter();
+          }
+        }
+        
+        galleryItems.forEach((item, index) => {
+          item.addEventListener('click', () => openLightbox(index));
+        });
+        
+        lightboxClose?.addEventListener('click', closeLightbox);
+        lightboxNext?.addEventListener('click', showNext);
+        lightboxPrev?.addEventListener('click', showPrev);
+        
+        lightbox?.addEventListener('click', (e) => {
+          if (e.target === lightbox) closeLightbox();
+        });
+        
+        document.addEventListener('keydown', (e) => {
+          if (!lightbox?.classList.contains('active')) return;
+          if (e.key === 'Escape') closeLightbox();
+          if (e.key === 'ArrowRight') showNext();
+          if (e.key === 'ArrowLeft') showPrev();
+        });
+      </script>
+    </>
+  )}
+
+  {otherProjects.length > 0 && (
+    <section class="related-section">
+      <div class="container">
+        <div class="related-header">
+          <p class="related-label">More Projects</p>
+          <h2 class="related-title">Related Work</h2>
+        </div>
+        <div class="related-grid">
+          {otherProjects.map((p) => (
+            <a href={`/projects/${p.slug}`} class="related-card">
+              <div class="related-card-image">
+                <img src={p.data.thumbnail} alt={p.data.title} loading="lazy" />
+              </div>
+              <p class="related-card-location">{p.data.location}</p>
+              <h3 class="related-card-title">{p.data.title}</h3>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>

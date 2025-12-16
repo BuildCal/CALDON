@@ -1,0 +1,179 @@
+---
+// Sophisticated loading screen
+---
+
+<div class="loading-screen" id="loading-screen">
+  <div class="loading-content">
+    <div class="loading-logo">
+      <img src="/logo.png" alt="CALDON" />
+    </div>
+    <div class="loading-progress">
+      <div class="loading-bar"></div>
+    </div>
+    <div class="loading-text">
+      <span class="loading-word">Loading</span>
+      <span class="loading-dots">
+        <span>.</span>
+        <span>.</span>
+        <span>.</span>
+      </span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .loading-screen {
+    position: fixed;
+    inset: 0;
+    background-color: var(--color-background);
+    z-index: 10002;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.6s var(--ease-out), visibility 0.6s;
+  }
+  
+  .loading-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  
+  .loading-content {
+    text-align: center;
+    max-width: 300px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .loading-logo {
+    margin-bottom: var(--space-3xl);
+    opacity: 0;
+    animation: fadeInUp 0.8s var(--ease-out) 0.2s forwards;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .loading-logo img {
+    height: 80px;
+    width: auto;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  @media (min-width: 768px) {
+    .loading-logo img {
+      height: 100px;
+    }
+  }
+  
+  .loading-progress {
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-border);
+    margin-bottom: var(--space-xl);
+    overflow: hidden;
+  }
+  
+  .loading-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    animation: loadingProgress 2s var(--ease-out) forwards;
+  }
+  
+  .loading-text {
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeIn 0.6s var(--ease-out) 0.5s forwards;
+  }
+  
+  .loading-word {
+    display: inline-block;
+  }
+  
+  .loading-dots span {
+    display: inline-block;
+    animation: dotPulse 1.4s ease-in-out infinite;
+  }
+  
+  .loading-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  
+  .loading-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes loadingProgress {
+    0% {
+      width: 0%;
+    }
+    50% {
+      width: 70%;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+  
+  @keyframes dotPulse {
+    0%, 100% {
+      opacity: 0.3;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style>
+
+<script>
+  const loadingScreen = document.getElementById('loading-screen');
+  
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      if (loadingScreen) {
+        loadingScreen.classList.add('hidden');
+      }
+    }, 1500);
+  });
+  
+  // Fallback if page loads quickly
+  if (document.readyState === 'complete') {
+    setTimeout(() => {
+      if (loadingScreen) {
+        loadingScreen.classList.add('hidden');
+      }
+    }, 500);
+  }
+</script>
+

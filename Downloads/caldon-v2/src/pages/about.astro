@@ -1,0 +1,485 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="About" description="CALDON — Private property development partnership for select investors.">
+  <style>
+    .page-header {
+      padding: 180px 0 80px;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .page-header {
+        padding: 200px 0 100px;
+      }
+    }
+
+    .page-label {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #858585;
+      margin-bottom: 20px;
+    }
+
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 300;
+      letter-spacing: 0.01em;
+      margin-bottom: 24px;
+      line-height: 1.15;
+      color: #0a0a0a;
+    }
+
+    .page-description {
+      font-size: 1rem;
+      color: #525252;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    @media (min-width: 768px) {
+      .page-description {
+        font-size: 1.05rem;
+      }
+    }
+
+    /* Sections */
+    section {
+      padding: 80px 0;
+    }
+
+    @media (min-width: 768px) {
+      section {
+        padding: 120px 0;
+      }
+    }
+
+    section:nth-child(even) {
+      background-color: #fafafa;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #858585;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 300;
+      text-align: center;
+      margin-bottom: 48px;
+      line-height: 1.2;
+      color: #0a0a0a;
+    }
+
+    /* Content Block */
+    .content-block {
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .content-block h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 300;
+      text-align: center;
+      margin-bottom: 32px;
+      line-height: 1.2;
+      color: #0a0a0a;
+    }
+
+    .content-block p {
+      font-size: 1rem;
+      color: #525252;
+      line-height: 1.9;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .content-block p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Philosophy Quote */
+    .philosophy-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem;
+      font-weight: 300;
+      line-height: 1.3;
+      color: #0a0a0a;
+      text-align: center;
+      max-width: 1000px;
+      margin: 0 auto 64px;
+      font-style: italic;
+    }
+
+    @media (max-width: 768px) {
+      .philosophy-quote {
+        font-size: 2rem;
+      }
+    }
+
+    /* Capability Grid */
+    .capability-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .capability-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+      }
+    }
+
+    .capability-item {
+      padding: 32px;
+      background-color: #ffffff;
+      border: 1px solid #e5e5e5;
+    }
+
+    section:nth-child(even) .capability-item {
+      background-color: #ffffff;
+    }
+
+    .capability-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: #0a0a0a;
+      margin-bottom: 12px;
+    }
+
+    .capability-text {
+      font-size: 0.85rem;
+      color: #525252;
+      line-height: 1.7;
+    }
+
+    .capability-note {
+      max-width: 700px;
+      margin: 48px auto 0;
+      text-align: center;
+      font-size: 1.15rem;
+      font-style: italic;
+      color: #525252;
+      line-height: 1.7;
+    }
+
+    /* Principles */
+    .principles-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .principles-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 48px;
+      }
+    }
+
+    .principle-item {
+      text-align: center;
+    }
+
+    .principle-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: #0a0a0a;
+      margin-bottom: 12px;
+    }
+
+    .principle-text {
+      font-size: 0.85rem;
+      color: #525252;
+      line-height: 1.7;
+    }
+
+    /* Team Placeholder */
+    .team-intro {
+      max-width: 600px;
+      margin: 0 auto 48px;
+      text-align: center;
+    }
+
+    .team-intro p {
+      font-size: 0.95rem;
+      color: #525252;
+      line-height: 1.8;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 600px) {
+      .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+      }
+    }
+
+    .team-member {
+      text-align: center;
+    }
+
+    .team-photo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      background-color: #e5e5e5;
+      margin: 0 auto 20px;
+    }
+
+    .team-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: #0a0a0a;
+      margin-bottom: 4px;
+    }
+
+    .team-role {
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #858585;
+      margin-bottom: 16px;
+    }
+
+    .team-bio {
+      font-size: 0.85rem;
+      color: #525252;
+      line-height: 1.7;
+    }
+
+    /* Advisers Note */
+    .advisers-section {
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .advisers-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: #0a0a0a;
+      margin-bottom: 20px;
+    }
+
+    .advisers-text {
+      font-size: 0.9rem;
+      color: #525252;
+      line-height: 1.8;
+    }
+
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        padding: 0 48px;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out forwards;
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+  </style>
+
+  <section class="page-header">
+    <div class="container">
+      <p class="page-label fade-up">The Firm</p>
+      <h1 class="page-title fade-up delay-1">About CALDON</h1>
+      <p class="page-description fade-up delay-2">
+        Private property development partnership for select investors across New South Wales.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="content-block">
+        <p class="philosophy-quote">
+          "We exist to give sophisticated investors access to development returns without the operational burden of managing a project themselves."
+        </p>
+        <p>
+          CALDON was established in 2015 to bridge a gap in the market: investors with capital seeking development-level returns, but without the time, expertise, or inclination to manage the process themselves.
+        </p>
+        <p>
+          We operate as an extension of your investment strategy — identifying opportunities, structuring acquisitions, managing the development process, and delivering completed assets. You retain ownership and control. We handle everything else.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <p class="section-label">In-House Capability</p>
+      <h2 class="section-title">What Sets Us Apart</h2>
+      
+      <div class="capability-grid">
+        <div class="capability-item">
+          <h3 class="capability-title">Integrated Team</h3>
+          <p class="capability-text">
+            Architecture, quantity surveying, project management, and construction expertise under one roof. No fragmented consultants. No finger-pointing. Single point of accountability.
+          </p>
+        </div>
+        <div class="capability-item">
+          <h3 class="capability-title">Active Deal Flow</h3>
+          <p class="capability-text">
+            We continuously assess opportunities across our target markets. Qualified partners receive first access to projects meeting their criteria — not leftover deals.
+          </p>
+        </div>
+        <div class="capability-item">
+          <h3 class="capability-title">Regional Expertise</h3>
+          <p class="capability-text">
+            Deep knowledge of the Mid North Coast, Hunter, and Central Coast markets. Established relationships with councils, agents, and contractors. Local intelligence that outsiders can't replicate.
+          </p>
+        </div>
+        <div class="capability-item">
+          <h3 class="capability-title">Aligned Structure</h3>
+          <p class="capability-text">
+            Our fee structure is tied to project milestones and outcomes. We're incentivised to deliver results efficiently, not to extend timelines or inflate scope.
+          </p>
+        </div>
+      </div>
+
+      <p class="capability-note">
+        For select projects, we offer full design-and-construct delivery through our in-house construction team — available by arrangement for the right opportunity.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <p class="section-label">Operating Principles</p>
+      <h2 class="section-title">How We Work</h2>
+      
+      <div class="principles-grid">
+        <div class="principle-item">
+          <h3 class="principle-title">Discretion</h3>
+          <p class="principle-text">
+            All investor relationships and project details are treated with strict confidentiality. We don't publicise partnerships without consent.
+          </p>
+        </div>
+        <div class="principle-item">
+          <h3 class="principle-title">Transparency</h3>
+          <p class="principle-text">
+            Clear reporting, honest feasibility assessments, and upfront communication when things change. No surprises. No hidden agendas.
+          </p>
+        </div>
+        <div class="principle-item">
+          <h3 class="principle-title">Selectivity</h3>
+          <p class="principle-text">
+            We don't pursue volume. We take on projects where we see genuine opportunity and work with investors who share our approach.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <p class="section-label">Leadership</p>
+      <h2 class="section-title">The Team</h2>
+      
+      <div class="team-intro">
+        <p>
+          CALDON is led by principals with backgrounds in property development, construction management, and investment structuring. Our extended team includes specialists in architecture, engineering, and quantity surveying.
+        </p>
+      </div>
+
+      <div class="team-grid">
+        <div class="team-member">
+          <img src="/team/bradley-caldon.jpg" alt="Bradley Caldon" class="team-photo" />
+          <h3 class="team-name">Bradley Caldon</h3>
+          <p class="team-role">Managing Director</p>
+          <p class="team-bio">
+            BConstMgt(Bldg)(Hons)<br>
+            Licensed Builder (NSW) · Building Practitioner BUP0002269<br>
+            Research, Acquisitions, Quantity Surveying & Tender Management
+          </p>
+        </div>
+        <div class="team-member">
+          <img src="/team/john-caldon.jpg" alt="John Caldon" class="team-photo" />
+          <h3 class="team-name">John Caldon</h3>
+          <p class="team-role">Senior Adviser</p>
+          <p class="team-bio">
+            Licensed Builder (NSW)<br>
+            Site Sourcing, Option Negotiation & Deal Strategy
+          </p>
+        </div>
+        <div class="team-member">
+          <img src="/team/andrew-eggins.jpg" alt="Andrew Eggins" class="team-photo" />
+          <h3 class="team-name">Andrew Eggins</h3>
+          <p class="team-role">Design Director</p>
+          <p class="team-bio">
+            BArch, AdvDipBus<br>
+            Design, DA Management, Town Planning & Consultant Coordination
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="advisers-section">
+        <h2 class="advisers-title">Working With Your Advisers</h2>
+        <p class="advisers-text">
+          We coordinate with your accountant, solicitor, and financial adviser to ensure investment structures are optimised from day one — whether through personal ownership, company, trust, or SMSF. Our role complements your existing advisory relationships, not replaces them.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,71 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  class?: string;
+  aspectRatio?: string;
+}
+
+const { src, alt, class: className = '', aspectRatio = '16/9' } = Astro.props;
+const revealId = `img-reveal-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div class={`image-reveal ${className}`} data-reveal-id={revealId} style={`--aspect-ratio: ${aspectRatio}`}>
+  <div class="image-reveal-mask"></div>
+  <img src={src} alt={alt} class="image-reveal-img" loading="lazy" />
+</div>
+
+<style>
+  .image-reveal {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: var(--aspect-ratio, 16/9);
+    background-color: var(--color-surface);
+  }
+  
+  .image-reveal-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.8s var(--ease-out);
+  }
+  
+  .image-reveal-mask {
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1s var(--ease-in-out);
+    z-index: 1;
+  }
+  
+  .image-reveal.revealed .image-reveal-mask {
+    transform: scaleX(1);
+    transform-origin: right;
+  }
+  
+  .image-reveal.revealed .image-reveal-img {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  const element = document.querySelector(`[data-reveal-id="${revealId}"]`);
+  if (element) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('revealed');
+          }, 100);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    observer.observe(element);
+  }
+</script>
+

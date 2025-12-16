@@ -1,0 +1,64 @@
+---
+interface Props {
+  text: string;
+  delay?: number;
+  class?: string;
+}
+
+const { text, delay = 0, class: className = '' } = Astro.props;
+const revealId = `reveal-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div class={`text-reveal ${className}`} data-reveal-id={revealId} data-delay={delay}>
+  <span class="text-reveal-wrapper">
+    {text.split(' ').map((word, i) => (
+      <span class="text-reveal-word" style={`--delay: ${i * 0.05}s`}>
+        {word}
+        {i < text.split(' ').length - 1 && '\u00A0'}
+      </span>
+    ))}
+  </span>
+</div>
+
+<style>
+  .text-reveal {
+    overflow: hidden;
+  }
+  
+  .text-reveal-wrapper {
+    display: inline-block;
+  }
+  
+  .text-reveal-word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+    transition-delay: calc(var(--delay) + var(--base-delay, 0s));
+  }
+  
+  .text-reveal.revealed .text-reveal-word {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
+<script>
+  const element = document.querySelector(`[data-reveal-id="${revealId}"]`);
+  if (element) {
+    const delay = parseFloat(element.getAttribute('data-delay') || '0');
+    element.style.setProperty('--base-delay', `${delay}s`);
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    observer.observe(element);
+  }
+</script>
+

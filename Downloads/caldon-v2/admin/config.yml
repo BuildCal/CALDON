@@ -1,0 +1,71 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images/projects"
+public_folder: "/images/projects"
+
+collections:
+  - name: "projects"
+    label: "Projects"
+    label_singular: "Project"
+    folder: "src/content/projects"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}} — {{location}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Location", name: "location", widget: "string", hint: "e.g., Taree, NSW" }
+      - { label: "Full Address", name: "fullAddress", widget: "string", hint: "e.g., Taree, NSW 2430" }
+      - { label: "Type", name: "type", widget: "string", hint: "e.g., Residential, Commercial" }
+      - { label: "Units/Scale", name: "units", widget: "string", hint: "e.g., 8 Townhouses" }
+      - { label: "Year", name: "year", widget: "string" }
+      - { label: "Council", name: "council", widget: "string" }
+      - label: "Thumbnail"
+        name: "thumbnail"
+        widget: "image"
+        hint: "For projects grid (800x600px)"
+      - label: "Hero Image"
+        name: "heroImage"
+        widget: "image"
+        hint: "Large header image (1920x1080px)"
+      - label: "Gallery"
+        name: "gallery"
+        widget: "list"
+        required: false
+        field: { label: "Image", name: "image", widget: "image" }
+      - { label: "Description", name: "description", widget: "text", hint: "Short description for SEO" }
+      - label: "Overview"
+        name: "body"
+        widget: "markdown"
+        hint: "Main project description"
+      - label: "Highlights"
+        name: "highlights"
+        widget: "list"
+        required: false
+        field: { label: "Highlight", name: "highlight", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Featured", name: "featured", widget: "boolean", default: false }
+      - { label: "Draft", name: "draft", widget: "boolean", default: false }
+
+  - name: "news"
+    label: "News"
+    label_singular: "Article"
+    folder: "src/content/news"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}} — {{date}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Excerpt", name: "excerpt", widget: "text", hint: "Short summary for listing" }
+      - label: "Thumbnail"
+        name: "thumbnail"
+        widget: "image"
+        required: false
+        hint: "Optional image (800x600px)"
+      - label: "Content"
+        name: "body"
+        widget: "markdown"
+      - { label: "Featured", name: "featured", widget: "boolean", default: false }
+      - { label: "Draft", name: "draft", widget: "boolean", default: false }

@@ -1,0 +1,498 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Approach" description="Our approach to property development and investment across New South Wales.">
+  <style>
+    .page-header {
+      padding: 180px 0 80px;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .page-header {
+        padding: 200px 0 100px;
+      }
+    }
+
+    .page-label {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #858585;
+      margin-bottom: 20px;
+    }
+
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 300;
+      letter-spacing: 0.01em;
+      margin-bottom: 24px;
+      line-height: 1.15;
+      color: #0a0a0a;
+    }
+
+    .page-description {
+      font-size: 1rem;
+      color: #525252;
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    @media (min-width: 768px) {
+      .page-description {
+        font-size: 1.05rem;
+      }
+    }
+
+    /* Sections */
+    section {
+      padding: 80px 0;
+    }
+
+    @media (min-width: 768px) {
+      section {
+        padding: 120px 0;
+      }
+    }
+
+    section:nth-child(even) {
+      background-color: #fafafa;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #858585;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 300;
+      text-align: center;
+      margin-bottom: 64px;
+      line-height: 1.2;
+      color: #0a0a0a;
+    }
+
+    /* Philosophy */
+    .philosophy-content {
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .philosophy-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.4rem, 3vw, 1.8rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.5;
+      margin-bottom: 40px;
+      color: #0a0a0a;
+    }
+
+    .philosophy-text {
+      font-size: 1rem;
+      color: #525252;
+      line-height: 1.9;
+      margin-bottom: 24px;
+    }
+
+    .philosophy-text:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Services Grid */
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+      }
+    }
+
+    .service-item {
+      text-align: center;
+      padding: 24px 16px;
+    }
+
+    .service-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: #e0e0e0;
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+
+    .service-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      margin-bottom: 16px;
+      color: #0a0a0a;
+    }
+
+    .service-description {
+      font-size: 0.9rem;
+      color: #525252;
+      line-height: 1.8;
+    }
+
+    /* Brokerage */
+    .brokerage-intro {
+      max-width: 680px;
+      margin: 0 auto 64px;
+      text-align: center;
+    }
+
+    .brokerage-intro p {
+      font-size: 1rem;
+      color: #525252;
+      line-height: 1.9;
+    }
+
+    .brokerage-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .brokerage-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 48px 56px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .brokerage-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .brokerage-item {
+      text-align: left;
+    }
+
+    .brokerage-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      color: #e0e0e0;
+      margin-bottom: 12px;
+      line-height: 1;
+    }
+
+    .brokerage-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      margin-bottom: 12px;
+      color: #0a0a0a;
+    }
+
+    .brokerage-description {
+      font-size: 0.9rem;
+      color: #525252;
+      line-height: 1.8;
+    }
+
+    /* Deliverables */
+    .deliverables {
+      max-width: 720px;
+      margin: 80px auto 0;
+      padding: 48px;
+      border: 1px solid #e5e5e5;
+    }
+
+    @media (max-width: 767px) {
+      .deliverables {
+        padding: 32px 24px;
+        margin-top: 56px;
+      }
+    }
+
+    .deliverables-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-bottom: 32px;
+      text-align: center;
+      color: #0a0a0a;
+    }
+
+    .deliverables-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    @media (min-width: 768px) {
+      .deliverables-list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px 48px;
+      }
+    }
+
+    .deliverable-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.9rem;
+      color: #525252;
+      line-height: 1.6;
+    }
+
+    .deliverable-item::before {
+      content: '—';
+      color: #c0c0c0;
+      flex-shrink: 0;
+    }
+
+    /* CTA */
+    .cta-section {
+      text-align: center;
+      padding: 100px 0;
+    }
+
+    @media (min-width: 768px) {
+      .cta-section {
+        padding: 140px 0;
+      }
+    }
+
+    .cta-content {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .cta-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 300;
+      margin-bottom: 20px;
+      line-height: 1.2;
+      color: #0a0a0a;
+    }
+
+    .cta-text {
+      font-size: 1rem;
+      color: #525252;
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 18px 56px;
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #ffffff;
+      background-color: #0a0a0a;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background-color: #2a2a2a;
+    }
+
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        padding: 0 48px;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out forwards;
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+  </style>
+
+  <section class="page-header">
+    <div class="container">
+      <p class="page-label fade-up">How We Work</p>
+      <h1 class="page-title fade-up delay-1">Approach</h1>
+      <p class="page-description fade-up delay-2">
+        Strategic development built on market intelligence, precise execution, and long-term thinking.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <p class="section-label">Philosophy</p>
+      <h2 class="section-title">Strategic Vision</h2>
+      <div class="philosophy-content">
+        <p class="philosophy-quote">
+          "Discretion, precision, and strategic thinking drive exceptional property outcomes."
+        </p>
+        <p class="philosophy-text">
+          CALDON™ operates as a private property development and investment company with deep roots in the NSW market. We focus on regional and metropolitan New South Wales, with particular expertise across the Mid North Coast and Hunter regions.
+        </p>
+        <p class="philosophy-text">
+          We work with established real estate professionals, qualified investors, and strategic partners. Our operations are built on market intelligence and the pursuit of exceptional opportunities.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <p class="section-label">Principal Activities</p>
+      <h2 class="section-title">Development & Investment</h2>
+      <div class="services-grid">
+        <div class="service-item">
+          <p class="service-number">01</p>
+          <h3 class="service-title">Acquisition</h3>
+          <p class="service-description">
+            Strategic identification and acquisition of development sites across NSW, with focus on high-growth regional markets and select metropolitan opportunities.
+          </p>
+        </div>
+        <div class="service-item">
+          <p class="service-number">02</p>
+          <h3 class="service-title">Development</h3>
+          <p class="service-description">
+            End-to-end development from feasibility through to completion, delivering residential and commercial projects with precision and market insight.
+          </p>
+        </div>
+        <div class="service-item">
+          <p class="service-number">03</p>
+          <h3 class="service-title">Investment</h3>
+          <p class="service-description">
+            Curated property portfolio managed for long-term capital growth and strategic market positioning across diverse property sectors.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <p class="section-label">For Investors</p>
+      <h2 class="section-title">Development Brokerage</h2>
+      
+      <div class="brokerage-intro">
+        <p>
+          For qualified investors seeking property development exposure, we provide end-to-end development services—from site sourcing through to construction completion. You provide the investment criteria and capital; we handle procurement, design, approvals, and delivery.
+        </p>
+      </div>
+      
+      <div class="brokerage-grid">
+        <div class="brokerage-item">
+          <p class="brokerage-number">01</p>
+          <h3 class="brokerage-title">Site Sourcing & Feasibility</h3>
+          <p class="brokerage-description">
+            Identify opportunities matching your criteria, conduct feasibility analysis, and present qualified sites with clear financial metrics.
+          </p>
+        </div>
+        <div class="brokerage-item">
+          <p class="brokerage-number">02</p>
+          <h3 class="brokerage-title">Design & Approvals</h3>
+          <p class="brokerage-description">
+            Manage the complete design process, town planning strategy, and DA submission through to development consent.
+          </p>
+        </div>
+        <div class="brokerage-item">
+          <p class="brokerage-number">03</p>
+          <h3 class="brokerage-title">Acquisition Management</h3>
+          <p class="brokerage-description">
+            Negotiate terms, manage due diligence, and facilitate land purchase with planning approval in place.
+          </p>
+        </div>
+        <div class="brokerage-item">
+          <p class="brokerage-number">04</p>
+          <h3 class="brokerage-title">Tender & Contract</h3>
+          <p class="brokerage-description">
+            Manage builder tendering, evaluate submissions, and negotiate contracts ensuring competitive pricing.
+          </p>
+        </div>
+        <div class="brokerage-item">
+          <p class="brokerage-number">05</p>
+          <h3 class="brokerage-title">Construction Management</h3>
+          <p class="brokerage-description">
+            Client-side project management throughout construction, protecting your interests to practical completion.
+          </p>
+        </div>
+        <div class="brokerage-item">
+          <p class="brokerage-number">06</p>
+          <h3 class="brokerage-title">NSW-Wide Capability</h3>
+          <p class="brokerage-description">
+            Deep expertise across regional and metropolitan NSW, with established networks from the Mid North Coast to Sydney.
+          </p>
+        </div>
+      </div>
+
+      <div class="deliverables">
+        <h3 class="deliverables-title">End-to-End Service</h3>
+        <div class="deliverables-list">
+          <div class="deliverable-item">Site identification and feasibility</div>
+          <div class="deliverable-item">Development design and documentation</div>
+          <div class="deliverable-item">DA lodgement and approval management</div>
+          <div class="deliverable-item">Land acquisition negotiation</div>
+          <div class="deliverable-item">Quantity surveying and cost verification</div>
+          <div class="deliverable-item">Builder tendering and evaluation</div>
+          <div class="deliverable-item">Contract negotiation and execution</div>
+          <div class="deliverable-item">Client-side construction management</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2 class="cta-title">Work With Us</h2>
+        <p class="cta-text">
+          We work with qualified investors seeking strategic property exposure in NSW markets. If you'd like to discuss opportunities, we'd be pleased to hear from you.
+        </p>
+        <a href="/contact" class="cta-button">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
